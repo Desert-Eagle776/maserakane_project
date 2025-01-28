@@ -1,0 +1,677 @@
+{
+  "main_maps": {},
+  "Map001": {},
+  "Map002": {
+    "12,31": {
+      "name": "Stone",
+      "type": "mine",
+      "players": [
+        {
+          "playerId": "5d474f61-bf23-4673-8edf-2543038e3c30",
+          "timestamp": "2025-01-25T22:22:00.506Z"
+        },
+        {
+          "playerId": "5d474f61-bf23-4673-8edf-2543038e3c30",
+          "timestamp": "2025-01-26T11:23:51.020Z"
+        }
+      ]
+    },
+    "17,23": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "15,19": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "21,23": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "27,24": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "30,19": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "25,18": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "29,13": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "24,14": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "18,36": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    }
+  },
+  "Map003": {
+    "20,7": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "19,9": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "23,12": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "20,14": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "24,15": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "26,11": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "28,18": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "38,21": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "33,21": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "33,13": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "14,22": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "12,18": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "15,18": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "17,16": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "12,30": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "12,33": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "25,31": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "27,31": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "32,33": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "36,34": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "40,40": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "35,40": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "39,42": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "40,45": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "37,45": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "37,47": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "36,48": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "34,49": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    },
+    "28,53": {
+      "name": "Stone",
+      "type": "mine",
+      "players": []
+    }
+  },
+  "Map004": {},
+  "Map005": {
+    "46,40": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "39,37": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "51,35": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "50,28": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "41,25": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "44,25": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "46,23": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "61,19": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "59,19": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "73,26": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "74,33": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "72,33": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "64,42": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "74,42": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "31,42": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "45,35": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "36,29": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "32,27": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "35,18": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "31,18": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "30,17": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "28,17": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "26,18": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "25,18": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "24,18": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "10,40": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "9,33": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "7,36": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "20,48": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "39,49": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "33,48": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "30,38": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "4,39": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "6,40": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "6,45": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "20,46": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "27,50": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "34,53": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "30,52": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "28,43": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "59,25": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "57,40": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "67,52": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "74,49": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "89,33": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "91,30": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "87,29": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "88,29": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "89,27": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "88,25": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "89,23": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "89,21": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "89,15": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "85,19": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "79,20": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "79,22": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "63,34": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "61,23": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "52,11": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "47,26": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "60,45": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "61,51": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "63,49": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "59,47": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "53,42": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "42,52": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "42,36": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "52,16": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "49,13": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    }
+  },
+  "Map006": {
+    "13,4": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    },
+    "8,6": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    },
+    "3,12": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    },
+    "12,14": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    },
+    "9,21": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    },
+    "18,20": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    },
+    "20,12": {
+      "name": "Fish",
+      "type": "fish",
+      "players": []
+    }
+  },
+  "Map007": {},
+  "Map008": {},
+  "Map009": {},
+  "Map010": {},
+  "Map011": {},
+  "Map012": {},
+  "Map013": {},
+  "Map014": {},
+  "Map015": {},
+  "Map016": {},
+  "Map017": {},
+  "Map018": {},
+  "Map019": {},
+  "Map020": {},
+  "Map021": {},
+  "Map022": {},
+  "Map023": {},
+  "Map024": {},
+  "Map025": {},
+  "Map026": {},
+  "Map027": {},
+  "Map028": {},
+  "Map029": {},
+  "Map030": {
+    "7,2": {
+      "name": "Wood",
+      "type": "chop",
+      "players": [
+        {
+          "playerId": "Player123",
+          "timestamp": "2025-01-07T20:17:33.009Z"
+        }
+      ]
+    },
+    "16,5": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "8,7": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    }
+  },
+  "Map031": {
+    "7,1": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "8,7": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "3,11": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "13,1": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "10,1": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    },
+    "9,12": {
+      "name": "Wood",
+      "type": "chop",
+      "players": []
+    }
+  },
+  "Map032": {},
+  "Map033": {},
+  "Map034": {}
+}

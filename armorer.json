@@ -1,0 +1,217 @@
+{
+    "Helmet": {
+        "Fabric": {
+            "Common": {
+                "requiredLevel": 0,
+                "successRate": 90, 
+                "materials": [
+                    { "name": "Fabric", "quantity": 10 }
+                ]
+            },
+            "Uncommon": {
+                "requiredLevel": 2,
+                "successRate": 80,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Common Helmet", "quantity": 4 }
+                ]
+            },
+            "Rare": {
+                "requiredLevel": 2,
+                "successRate": 70,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Uncommon Helmet", "quantity": 4 }
+                ]
+            },
+            "Epic": {
+                "requiredLevel": 3,
+                "successRate": 60,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Rare Helmet", "quantity": 4 }
+                ]
+            },
+            "Legendary": {
+                "requiredLevel": 5,
+                "successRate": 50,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Epic Helmet", "quantity": 4 }
+                ]
+            }
+        }
+    },
+    "Chestplate": {
+        "Fabric": {
+            "Common": {
+                "requiredLevel": 1,
+                "successRate": 90, 
+                "materials": [
+                    { "name": "Fabric", "quantity": 10 }
+                ]
+            },
+            "Uncommon": {
+                "requiredLevel": 2,
+                "successRate": 80,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Common Chestplate", "quantity": 4 }
+                ]
+            },
+            "Rare": {
+                "requiredLevel": 2,
+                "successRate": 70,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Uncommon Chestplate", "quantity": 4 }
+                ]
+            },
+            "Epic": {
+                "requiredLevel": 3,
+                "successRate": 60,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Rare Chestplate", "quantity": 4 }
+                ]
+            },
+            "Legendary": {
+                "requiredLevel": 5,
+                "successRate": 50,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Epic Chestplate", "quantity": 4 }
+                ]
+            }
+        }
+    },
+    "Legs": {
+        "Fabric": {
+            "Common": {
+                "requiredLevel": 1,
+                "successRate": 90, 
+                "materials": [
+                    { "name": "Fabric", "quantity": 10 }
+                ]
+            },
+            "Uncommon": {
+                "requiredLevel": 2,
+                "successRate": 80,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Common Legs", "quantity": 4 }
+                ]
+            },
+            "Rare": {
+                "requiredLevel": 2,
+                "successRate": 70,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Uncommon Legs", "quantity": 4 }
+                ]
+            },
+            "Epic": {
+                "requiredLevel": 3,
+                "successRate": 60,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Rare Legs", "quantity": 4 }
+                ]
+            },
+            "Legendary": {
+                "requiredLevel": 5,
+                "successRate": 50,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Epic Legs", "quantity": 4 }
+                ]
+            }
+        }
+    },
+    "Boots": {
+        "Fabric": {
+            "Common": {
+                "requiredLevel": 1,
+                "successRate": 90, 
+                "materials": [
+                    { "name": "Fabric", "quantity": 10 }
+                ]
+            },
+            "Uncommon": {
+                "requiredLevel": 2,
+                "successRate": 80,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Common Boots", "quantity": 4 }
+                ]
+            },
+            "Rare": {
+                "requiredLevel": 2,
+                "successRate": 70,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Uncommon Boots", "quantity": 4 }
+                ]
+            },
+            "Epic": {
+                "requiredLevel": 3,
+                "successRate": 60,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Rare Boots", "quantity": 4 }
+                ]
+            },
+            "Legendary": {
+                "requiredLevel": 5,
+                "successRate": 50,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Epic Boots", "quantity": 4 }
+                ]
+            }
+        }
+    },
+    "Gloves": {
+        "Fabric": {
+            "Common": {
+                "requiredLevel": 1,
+                "successRate": 90, 
+                "materials": [
+                    { "name": "Fabric", "quantity": 10 }
+                ]
+            },
+            "Uncommon": {
+                "requiredLevel": 2,
+                "successRate": 80,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Common Gloves", "quantity": 4 }
+                ]
+            },
+            "Rare": {
+                "requiredLevel": 2,
+                "successRate": 70,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Uncommon Gloves", "quantity": 4 }
+                ]
+            },
+            "Epic": {
+                "requiredLevel": 3,
+                "successRate": 60,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Rare Gloves", "quantity": 4 }
+                ]
+            },
+            "Legendary": {
+                "requiredLevel": 5,
+                "successRate": 50,
+                "materials": [
+                    { "name": "Fabric", "quantity": 15 },
+                    { "name": "Fabric Epic Gloves", "quantity": 4 }
+                ]
+            }
+        }
+    }
+}

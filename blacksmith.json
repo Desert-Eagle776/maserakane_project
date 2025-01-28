@@ -1,0 +1,46 @@
+{
+    "Sword": {
+        "Wood": {
+            "Common": {
+                "requiredLevel": 1,
+                "successRate": 90, 
+                "materials": [
+                    { "name": "Wood", "quantity": 10 },
+                    { "name": "Stick", "quantity": 5 }
+                ]
+            },
+            "Uncommon": {
+                "requiredLevel": 2,
+                "successRate": 80,
+                "materials": [
+                    { "name": "Wood", "quantity": 15 },
+                    { "name": "Wooden Common Sword", "quantity": 4 }
+                ]
+            },
+            "Rare": {
+                "requiredLevel": 2,
+                "successRate": 70,
+                "materials": [
+                    { "name": "Wood", "quantity": 15 },
+                    { "name": "Wooden Uncommon Sword", "quantity": 4 }
+                ]
+            },
+            "Epic": {
+                "requiredLevel": 3,
+                "successRate": 60,
+                "materials": [
+                    { "name": "Wood", "quantity": 15 },
+                    { "name": "Wooden Rare Sword", "quantity": 4 }
+                ]
+            },
+            "Legendary": {
+                "requiredLevel": 5,
+                "successRate": 50,
+                "materials": [
+                    { "name": "Wood", "quantity": 15 },
+                    { "name": "Wooden Epic Sword", "quantity": 4 }
+                ]
+            }
+        }
+    }
+}

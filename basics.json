@@ -1,0 +1,26 @@
+{
+    "Stick": {
+        "requiredLevel": 0,
+        "successRate": 90,
+        "materials": [
+            {
+                "name": "Wood",
+                "quantity": 5
+            }
+        ],
+        "jobs": "blacksmith",
+        "xpGained": 1
+    },
+    "Fabric": {
+        "requiredLevel": 0,
+        "successRate": 90,
+        "materials": [
+            {
+                "name": "string",
+                "quantity": 5
+            }
+        ],
+        "jobs": "armorer",
+        "xpGained": 1
+    }
+}

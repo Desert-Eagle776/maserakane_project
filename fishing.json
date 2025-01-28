@@ -1,0 +1,164 @@
+{
+    "fish": {
+        "common": [
+            "Jellyfish",
+            "Sweetfish",
+            "Trout",
+            "Man-o'-war",
+            "Blowfish"
+        ],
+        "uncommon": [
+            "Moorfish",
+            "Black Porgy",
+            "Bonito",
+            "Conger Eel",
+            "Grouper",
+            "Bass",
+            "Blue Gill",
+            "Rainbow Trout"
+        ],
+        "rare": [
+            "Barandy",
+            "Bullcat",
+            "Spearfish",
+            "Black Bass",
+            "Dorado",
+            "Flatfish",
+            "Salmon",
+            "Browntail",
+            "Sea Bream"
+        ],
+        "epic": [
+            "Sturgeon",
+            "Octopus",
+            "Angler",
+            "Pirahna"
+        ],
+        "legendary": [
+            "Whale",
+            "Acheron"
+        ]
+    },
+    "fishingRods": {
+        "Wooden": {
+            "Abundant": {
+                "commonFishDropRate": 70,
+                "uncommonFishDropRate": 20,
+                "rareFishDropRate": 8,
+                "epicFishDropRate": 2,
+                "legendaryFishDropRate": 0,
+                "xpGained": 3
+            },
+            "Common": {
+                "commonFishDropRate": 70,
+                "uncommonFishDropRate": 20,
+                "rareFishDropRate": 8,
+                "epicFishDropRate": 2,
+                "legendaryFishDropRate": 0,
+                "xpGained": 3
+            },
+            "Uncommon": {
+                "commonFishDropRate": 60,
+                "uncommonFishDropRate": 25,
+                "rareFishDropRate": 10,
+                "epicFishDropRate": 4,
+                "legendaryFishDropRate": 1
+            },
+            "Rare": {
+                "commonFishDropRate": 50,
+                "uncommonFishDropRate": 30,
+                "rareFishDropRate": 12,
+                "epicFishDropRate": 6,
+                "legendaryFishDropRate": 2
+            },
+            "Epic": {
+                "commonFishDropRate": 40,
+                "uncommonFishDropRate": 30,
+                "rareFishDropRate": 15,
+                "epicFishDropRate": 10,
+                "legendaryFishDropRate": 5
+            },
+            "Legendary": {
+                "commonFishDropRate": 30,
+                "uncommonFishDropRate": 30,
+                "rareFishDropRate": 20,
+                "epicFishDropRate": 15,
+                "legendaryFishDropRate": 5
+            }
+        },
+        "stone": {
+            "common": {
+                "commonFishDropRate": 65,
+                "uncommonFishDropRate": 25,
+                "rareFishDropRate": 8,
+                "epicFishDropRate": 2,
+                "legendaryFishDropRate": 0
+            },
+            "uncommon": {
+                "commonFishDropRate": 55,
+                "uncommonFishDropRate": 30,
+                "rareFishDropRate": 10,
+                "epicFishDropRate": 4,
+                "legendaryFishDropRate": 1
+            },
+            "rare": {
+                "commonFishDropRate": 45,
+                "uncommonFishDropRate": 35,
+                "rareFishDropRate": 12,
+                "epicFishDropRate": 6,
+                "legendaryFishDropRate": 2
+            },
+            "epic": {
+                "commonFishDropRate": 35,
+                "uncommonFishDropRate": 35,
+                "rareFishDropRate": 15,
+                "epicFishDropRate": 10,
+                "legendaryFishDropRate": 5
+            },
+            "legendary": {
+                "commonFishDropRate": 25,
+                "uncommonFishDropRate": 35,
+                "rareFishDropRate": 20,
+                "epicFishDropRate": 15,
+                "legendaryFishDropRate": 5
+            }
+        },
+        "iron": {
+            "common": {
+                "commonFishDropRate": 60,
+                "uncommonFishDropRate": 30,
+                "rareFishDropRate": 8,
+                "epicFishDropRate": 2,
+                "legendaryFishDropRate": 0
+            },
+            "uncommon": {
+                "commonFishDropRate": 50,
+                "uncommonFishDropRate": 35,
+                "rareFishDropRate": 10,
+                "epicFishDropRate": 4,
+                "legendaryFishDropRate": 1
+            },
+            "rare": {
+                "commonFishDropRate": 40,
+                "uncommonFishDropRate": 40,
+                "rareFishDropRate": 12,
+                "epicFishDropRate": 6,
+                "legendaryFishDropRate": 2
+            },
+            "epic": {
+                "commonFishDropRate": 30,
+                "uncommonFishDropRate": 40,
+                "rareFishDropRate": 15,
+                "epicFishDropRate": 10,
+                "legendaryFishDropRate": 5
+            },
+            "legendary": {
+                "commonFishDropRate": 20,
+                "uncommonFishDropRate": 40,
+                "rareFishDropRate": 25,
+                "epicFishDropRate": 10,
+                "legendaryFishDropRate": 5
+            }
+        }
+    }
+}
