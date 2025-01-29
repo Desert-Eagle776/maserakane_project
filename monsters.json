@@ -1,0 +1,45 @@
+[
+    {
+        "name": "Goblin",
+        "rewards": {
+            "gold": { "min": 5, "max": 15 },
+            "xp": 10,
+            "items": [
+                { "name": "Small Potion", "dropRate": 0.5 },
+                { "name": "Goblin Ear", "dropRate": 0.3 }
+            ]
+        }
+    },
+    {
+        "name": "Spider",
+        "rewards": {
+            "gold": { "min": 0, "max": 5 },
+            "xp": 5,
+            "items": [
+                { "name": "String", "dropRate": 0.5 }
+            ]
+        }
+    },
+    {
+        "name": "Dragon",
+        "rewards": {
+            "gold": { "min": 300, "max": 600 },
+            "xp": 100,
+            "items": [
+                { "name": "Dragon Scale", "dropRate": 0.8 },
+                { "name": "Fire Gem", "dropRate": 0.6 }
+            ]
+        }
+    },
+    {
+        "name": "Skeleton",
+        "rewards": {
+            "gold": { "min": 20, "max": 60 },
+            "xp": 20,
+            "items": [
+                { "name": "Bone Sword", "dropRate": 0.4 },
+                { "name": "Ancient Coin", "dropRate": 0.7 }
+            ]
+        }
+    }
+]

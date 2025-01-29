@@ -8,6 +8,8 @@ const fishermenRouter = require("./src/routes/fishermen.router");
 const craftRouter = require("./src/routes/craft.router");
 const playerRouter = require("./src/routes/player.router");
 const lumberjackRouter = require("./src/routes/lumberjack.router");
+const questRouter = require("./src/routes/quest.router");
+const monsterRouter = require("./src/routes/monsters.router");
 
 const connectToMongoDB = require("./src/config/mongodbConnection");
 
@@ -27,6 +29,8 @@ app.use("/api", playerRouter);
 app.use("/api/fishermen", fishermenRouter);
 app.use("/api/craft", craftRouter);
 app.use("/api/lumberjack", lumberjackRouter);
+app.use("/api/quest", questRouter);
+app.use("/api/monsters", monsterRouter);
 
 // Fallback route to serve index.html for all unmatched routes
 app.get("*", (req, res, next) => {

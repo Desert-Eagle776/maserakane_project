@@ -160,6 +160,19 @@ const updateStuff = async (req, res) => {
       return res.status(404).json({ message: "Player not found" });
     }
 
+    for (const stuff in newStuff) {
+      const existingStuff = player.inventory.find(
+        (item) => item.name === newStuff[stuff]
+      );
+
+      if (!existingStuff || existingStuff.quantity <= 0) {
+        console.log(`The item is not in the inventory: ${newStuff[stuff]}`);
+        return res.status(400).json({
+          message: `The item is not in the inventory: ${newStuff[stuff]}`,
+        });
+      }
+    }
+
     // object to be updated
     const updateFields = {};
     for (const key of Object.keys(newStuff)) {

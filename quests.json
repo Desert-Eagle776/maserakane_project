@@ -1,0 +1,326 @@
+{
+  "quests": [
+    {
+      "id": "tutorial",
+      "name": "First Quests",
+      "steps": [
+        {
+          "id": "meet_mayor",
+          "description": "Meet the Mayor to begin your adventure. He will guide you through the village and introduce you to key characters.",
+          "npc": "Mayor",
+          "reward": {
+            "items": [
+              { "name": "Beginner's Guide", "quantity": 1 }
+            ]
+          },
+          "next": "visit_lumberjack",
+          "completed": false
+        },
+        {
+          "id": "visit_lumberjack",
+          "description": "The Mayor asks you to visit the Lumberjack. He will provide you with an axe and your first task.",
+          "npc": "Lumberjack",
+          "reward": {
+            "items": [
+              { "name": "Abundant Wooden Axe", "quantity": 1 }
+            ]
+          },
+          "next": "gather_wood",
+          "completed": false
+        },
+        {
+          "id": "gather_wood",
+          "description": "Use your new axe to gather 30 wood for the lumberjack.",
+          "npc": "Lumberjack",
+          "task": {
+            "type": "gather",
+            "items": [
+              { "name": "Wood", "quantity": 30 }
+            ]
+          },
+          "next": "return_wood",
+          "completed": false
+        },
+        {
+          "id": "return_wood",
+          "description": "Return to the lumberjack with the wood to receive your reward.",
+          "npc": "Lumberjack",
+          "task": {
+            "type": "deliver",
+            "items": [
+              { "name": "Wood", "quantity": 30 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "Wooden Common Axe", "quantity": 1 }
+            ],
+            "xp": { "name": "lumberjack", "quantity": 50 }
+          },
+          "next": "visit_fisherman",
+          "completed": false
+        },
+        {
+          "id": "visit_fisherman",
+          "description": "The Mayor now sends you to the fisherman to receive a fishing rod.",
+          "npc": "Fisher",
+          "reward": {
+            "items": [
+              { "name": "Wooden Abundant Fishing Rod", "quantity": 1 }
+            ]
+          },
+          "next": "catch_fish",
+          "completed": false
+        },
+        {
+          "id": "catch_fish",
+          "description": "Catch 10 fish using your new fishing rod.",
+          "npc": "Fisher",
+          "task": {
+            "type": "gather",
+            "items": [
+              { "name": "fish", "quantity": 10 }
+            ]
+          },
+          "next": "return_fish",
+          "completed": false
+        },
+        {
+          "id": "return_fish",
+          "description": "Return to the fisherman with your catch to receive a better fishing rod.",
+          "npc": "Fisher",
+          "task": {
+            "type": "deliver",
+            "items": [
+              { "name": "fish", "quantity": 10 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "Wooden Common Fishing Rod", "quantity": 1 }
+            ],
+            "xp": { "name": "fisherman", "quantity": 50 }
+          },
+          "next": "craft_sword",
+          "completed": false
+        },
+        {
+          "id": "craft_sword",
+          "description": "Craft a Wooden Common Sword by gathering wood and crafting sticks.",
+          "npc": "Blacksmith",
+          "task": {
+            "type": "craft",
+            "items": [
+              { "name": "stick", "quantity": 2 },
+              { "name": "Common Wooden Sword", "quantity": 1 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "Uncommon Wooden Sword", "quantity": 1 }
+            ],
+            "xp": { "name": "blacksmith", "quantity": 50 }
+          },
+          "next": "hunt_spiders",
+          "completed": false
+        },
+        {
+          "id": "hunt_spiders",
+          "description": "Kill 5 spiders and collect 5 strings for the armorer.",
+          "npc": "Armorer",
+          "task": {
+            "type": "kill",
+            "target": "spider",
+            "quantity": 5
+          },
+          "next": "return_strings",
+          "completed": false
+        },
+        {
+          "id": "return_strings",
+          "description": "Return the strings to the armorer to receive a new armor set.",
+          "npc": "Armorer",
+          "task": {
+            "type": "deliver",
+            "items": [
+              { "name": "String", "quantity": 5 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "Common Fabric Helmet", "quantity": 1 },
+              { "name": "Common Fabric Chestplate", "quantity": 1 },
+              { "name": "Common Fabric Leggings", "quantity": 1 },
+              { "name": "Common Fabric Boots", "quantity": 1 },
+              { "name": "Common Fabric Gloves", "quantity": 1 }
+            ],
+            "xp": {
+              "name": "armorer", "quantity": 50
+            }
+          }
+        }
+        ,
+        {
+          "id": "cooking_quest",
+          "description": "The Mayor introduces you to cooking. Gather ingredients to cook your first meal.",
+          "npc": "Mayor",
+          "task": {
+            "type": "gather",
+            "items": [
+              { "name": "carrot", "quantity": 3 },
+              { "name": "meat", "quantity": 2 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "Beginner Meal", "quantity": 1 }
+            ],
+            "xp": { "name": "cooking", "quantity": 30 }
+          },
+          "next": "quest_complete",
+          "completed": false
+        },
+        {
+          "id": "quest_complete",
+          "description": "Congratulations! You have completed the tutorial quests and are ready for the next adventure.",
+          "npc": "Mayor",
+          "optional": false,
+          "next": null,
+          "completed": false
+        }
+      ]
+    },
+    
+    {
+      "id": "lumberjack_quest",
+      "name": "Lumberjack Training",
+      "steps": [
+        {
+          "id": "meet_lumberjack",
+          "description": "Meet the lumberjack to begin your training. He will give you an Abundant Axe to start.",
+          "npc": "Lumberjack",
+          "reward": {
+            "items": [
+              { "name": "Abundant Wooden Axe", "quantity": 1 }
+            ]
+          },
+          "next": "gather_wood",
+          "completed": false
+        },
+        {
+          "id": "gather_wood",
+          "description": "Use your Abundant Axe to gather 5 wood.",
+          "npc": "Lumberjack",
+          "task": {
+            "type": "gather",
+            "items": [
+              { "name": "wood", "quantity": 30 }
+            ]
+          },
+          "next": "return_wood",
+          "completed": false
+        },
+        {
+          "id": "return_wood",
+          "description": "Return to the lumberjack with 5 wood and your Abundant Axe to receive a better tool.",
+          "npc": "Lumberjack",
+          "task": {
+            "type": "deliver",
+            "items": [
+              { "name": "wood", "quantity": 30 },
+              { "name": "Abundant Wooden Axe", "quantity": 1 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "Wooden Common Axe", "quantity": 1 }
+            ],
+            "xp": { "name": "lumberjack", "quantity": 50 }
+          },
+          "next": "quest_complete",
+          "completed": false
+        },
+        {
+          "id": "quest_complete",
+          "description": "Congratulations! You have completed your lumberjack training.",
+          "npc": "Lumberjack",
+          "optional": false,
+          "next": null,
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "crafting_quest",
+      "name": "Crafting Basics",
+      "steps": [
+        {
+          "id": "meet_crafter",
+          "description": "Meet the craftsman to learn the basics of crafting. He will give you a crafting guide.",
+          "npc": "Craftsman",
+          "reward": {
+            "items": [
+              { "name": "Crafting Guide", "quantity": 1 }
+            ]
+          },
+          "next": "gather_materials",
+          "completed": false
+        },
+        {
+          "id": "gather_materials",
+          "description": "Gather 10 wood to craft sticks.",
+          "npc": "Craftsman",
+          "task": {
+            "type": "gather",
+            "items": [
+              { "name": "wood", "quantity": 10 }
+            ]
+          },
+          "next": "craft_sticks",
+          "completed": false
+        },
+        {
+          "id": "craft_sticks",
+          "description": "Craft 5 sticks using the gathered wood.",
+          "npc": "Craftsman",
+          "task": {
+            "type": "craft",
+            "items": [
+              { "name": "stick", "quantity": 5 }
+            ]
+          },
+          "next": "craft_sword",
+          "completed": false
+        },
+        {
+          "id": "craft_sword",
+          "description": "Craft a Sword.",
+          "npc": "Craftsman",
+          "task": {
+            "type": "craft",
+            "items": [
+              { "name": "Common Wooden Sword", "quantity": 1 }
+            ]
+          },
+          "reward": {
+            "items": [
+              { "name": "wood", "quantity": 10 }
+            ],
+            "xp": { "name": "crafting", "quantity": 100 }
+          },
+          "next": "quest_complete",
+          "completed": false
+        },
+        {
+          "id": "quest_complete",
+          "description": "Congratulations! You have mastered the basics of crafting.",
+          "npc": "Craftsman",
+          "optional": false,
+          "next": null,
+          "completed": false
+        }
+      ]
+    }
+    
+  ]
+}
