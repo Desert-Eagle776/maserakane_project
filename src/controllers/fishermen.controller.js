@@ -3,6 +3,7 @@ const path = require("path");
 const mainMapsPath = path.resolve(__dirname, "..", "..", "maps/main_maps.json");
 const fishingData = require("../../fishing.json");
 const playerSchema = require("../models/player.schema");
+const { updateQuestProgress } = require("./quest.controller");
 
 const catchFish = async (req, res) => {
   try {
@@ -122,16 +123,16 @@ const catchFish = async (req, res) => {
       } else if (
         roll <
         rodConfig.commonFishDropRate +
-          rodConfig.uncommonFishDropRate +
-          rodConfig.rareFishDropRate
+        rodConfig.uncommonFishDropRate +
+        rodConfig.rareFishDropRate
       ) {
         fishRarity = "rare";
       } else if (
         roll <
         rodConfig.commonFishDropRate +
-          rodConfig.uncommonFishDropRate +
-          rodConfig.rareFishDropRate +
-          rodConfig.epicFishDropRate
+        rodConfig.uncommonFishDropRate +
+        rodConfig.rareFishDropRate +
+        rodConfig.epicFishDropRate
       ) {
         fishRarity = "epic";
       } else {
@@ -191,12 +192,16 @@ const catchFish = async (req, res) => {
 
     console.log("Fishing operation completed successfully.");
 
+    const questResult = await updateQuestProgress(playerId, 'Fisher', 'gather', 'fish', caughtFishes.length);
+    console.log("Quest progress updated:", questResult);
+
     res.status(201).json({
       message: "Fishing successful!",
       rewards: {
         fishes: caughtFishes,
         xp_gained: xpGained,
       },
+      questUpdate: questResult,
       inventory: player.inventory,
       professionXp: player.profession_xp,
     });

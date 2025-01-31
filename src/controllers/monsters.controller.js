@@ -1,5 +1,6 @@
 const monsters = require("../../monsters.json");
 const playerSchema = require("../models/player.schema");
+const { updateQuestProgress } = require("./quest.controller");
 
 const killMonster = async (req, res) => {
   try {
@@ -48,7 +49,7 @@ const killMonster = async (req, res) => {
     const goldEarned =
       Math.floor(
         Math.random() *
-          (monster.rewards.gold.max - monster.rewards.gold.min + 1)
+        (monster.rewards.gold.max - monster.rewards.gold.min + 1)
       ) + monster.rewards.gold.min;
     const newMoney = player.money.gold + goldEarned;
     // Expérience gagnée
@@ -64,6 +65,8 @@ const killMonster = async (req, res) => {
       `Player ${playerId} successfully updated after killing ${monsterName}`
     );
 
+    const questResult = await updateQuestProgress(playerId, "Monsters", 'kill', monsterName.toLowerCase(), 1);
+
     return res.status(201).json({
       message: "Monster defeated! Rewards added.",
       rewards: {
@@ -71,6 +74,7 @@ const killMonster = async (req, res) => {
         gold: goldEarned,
         xp: xpGained,
       },
+      questUpdate: questResult,
     });
   } catch (e) {
     console.log("Server error while kill monster: ", e);

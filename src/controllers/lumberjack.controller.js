@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const axesData = require("../../axes.json");
 const playerSchema = require("../models/player.schema");
+const { updateQuestProgress } = require("./quest.controller");
 
 const mainMapsPath = path.resolve(__dirname, "..", "..", "maps/main_maps.json");
 
@@ -149,6 +150,9 @@ const chopWood = async (req, res) => {
     player.last_action = new Date().toISOString();
     await player.save();
 
+    const questResult = await updateQuestProgress(playerId, 'Lumberjack Training', 'gather', 'wood', woodAmount);
+    console.log("Quest progress updated:", questResult);
+
     return res.status(201).json({
       message: "Chopping successful!",
       rewards: {
@@ -156,6 +160,7 @@ const chopWood = async (req, res) => {
         worm_bait: hasBait ? 1 : 0,
         xp_gained: axeConfig.xpGained,
       },
+      questUpdate: questResult,
       inventory: player.inventory,
       professionXp: player.profession_xp,
     });

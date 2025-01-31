@@ -3,6 +3,7 @@ const blacksmithData = require("../../blacksmith.json");
 const armorerData = require("../../armorer.json");
 const basicsData = require("../../basics.json");
 const playerSchema = require("../models/player.schema");
+const { updateQuestProgress } = require("./quest.controller");
 
 const blacksmithCraft = async (req, res) => {
   const playerId = req.user.playerId;
@@ -84,6 +85,10 @@ const blacksmithCraft = async (req, res) => {
     }
 
     await player.save();
+
+    const questItem = type.toLowerCase().replace(/\s+/g, '_');
+    const questResult = await updateQuestProgress(playerId, 'Crafting Basics', 'craft', questItem, 1);
+    console.log("Quest progress updated:", questResult);
 
     return res.status(201).json({
       message: "Craft successful",
@@ -180,11 +185,16 @@ const armorerCraft = async (req, res) => {
 
     await player.save();
 
+    const questItem = craftedItem.toLowerCase().replace(/\s+/g, '_');
+    const questResult = await updateQuestProgress(playerId, 'Crafting Basics', 'craft', questItem, 1);
+    console.log("Quest progress updated:", questResult);
+
     return res.status(201).json({
       message: "Craft successful",
       craftedItem,
       inventory: player.inventory,
       xpGained: armorerConfig.xpGained,
+      questUpdate: questResult,
     });
   } catch (e) {
     console.error("Error during crafting process:", e.message);
