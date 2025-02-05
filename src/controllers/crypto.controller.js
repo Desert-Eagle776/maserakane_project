@@ -40,7 +40,8 @@ const converttoNft = async (req, res) => {
     console.log(`✅ Found wallet: ${playerWallet}, Inventory:`, playerInventory);
 
     // Step 2: Validate the player has enough items
-    if (!playerInventory[nftName] || playerInventory[nftName] < quantity) {
+    const checkNft = playerInventory.find(item => item.name === nftName);
+    if (!checkNft || checkNft.quantity < quantity) {
       return res.status(400).json({ message: `Insufficient ${nftName} in inventory.` });
     }
 
@@ -51,25 +52,22 @@ const converttoNft = async (req, res) => {
     }
 
     // Step 4: Mint NFT using the player's wallet
-    const mintNfts = await mintMultipleNFTs(templateId, playerWallet, quantity, session);
-    if (!mintNfts) {
-      return res.status(500).json({ message: "Failed to mint NFT. Please try again later." });
-    }
+    await mintMultipleNFTs(templateId, playerWallet, quantity, session);
 
     console.log(`✅ Successfully minted ${quantity} ${nftName} for player ${playerId}`);
 
     // Step 5: Deduct the items from the player's inventory
-    playerInventory[nftName] -= quantity;
+    checkNft.quantity -= quantity;
 
     // Remove item from inventory if it reaches 0
-    if (playerInventory[nftName] <= 0) {
-      delete playerInventory[nftName];
+    if (checkNft.quantity <= 0) {
+      player.inventory = player.inventory.filter(item => item !== checkNft);
     }
 
     await player.save();
 
     console.log(`📉 Updated inventory after minting:`, playerInventory);
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: `${quantity} ${nftName} successfully converted to NFT for player ${playerId}.`,
     });
@@ -112,10 +110,8 @@ const mintMultipleNFTs = async (templateId, recipient, count, session) => {
 
     const result = await session.transact({ actions });
     console.log(`NFTs mintés avec succès ! Transaction ID : ${result.transaction_id}`);
-    return true;
   } catch (e) {
     console.error('Erreur lors du mint des NFT :', e);
-    return null;
   }
 }
 
