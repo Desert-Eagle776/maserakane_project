@@ -3,6 +3,8 @@ const express = require("express");
 const http = require("http");
 const WebSocket = require("ws");
 const path = require("path");
+const { Session } = require("@wharfkit/session");
+const { WalletPluginPrivateKey } = require("@wharfkit/wallet-plugin-privatekey");
 
 const fishermenRouter = require("./src/routes/fishermen.router");
 const craftRouter = require("./src/routes/craft.router");
@@ -10,17 +12,42 @@ const playerRouter = require("./src/routes/player.router");
 const lumberjackRouter = require("./src/routes/lumberjack.router");
 const questRouter = require("./src/routes/quest.router");
 const monsterRouter = require("./src/routes/monsters.router");
+const cryptoRouter = require("./src/routes/crypto.router");
 
 const connectToMongoDB = require("./src/config/mongodbConnection");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Charger la clé privée (environnement ou autre méthode sécurisée)
+const privateKey = process.env.PRIVATE_KEY;
+const accountName = process.env.ACCOUNT_NAME;
+const permissionName = process.env.PERMISSION_NAME;
+
+// Configuration de la blockchain
+const chain = {
+  id: process.env.BLOCKCHAIN_ID,
+  url: process.env.BLOCKCHAIN_URL,
+};
+const walletPlugin = new WalletPluginPrivateKey(privateKey);
+
+const session = new Session({
+  actor: accountName,
+  permission: permissionName,
+  chain,
+  walletPlugin,
+});
+
 // Path to serve static files (index.html, styles, scripts, etc.)
 const publicPath = "/home/newgenesis/htdocs/www.newgenesis.io";
 app.use(express.static(publicPath));
 // Middleware
 app.use(express.json());
+// Attach the session to requests
+app.use((req, res, next) => {
+  req.session = session;
+  next();
+});
 
 // connect to MongoDB
 connectToMongoDB();
@@ -31,6 +58,7 @@ app.use("/api/craft", craftRouter);
 app.use("/api/lumberjack", lumberjackRouter);
 app.use("/api/quest", questRouter);
 app.use("/api/monsters", monsterRouter);
+app.use("/api/crypto", cryptoRouter);
 
 // Fallback route to serve index.html for all unmatched routes
 app.get("*", (req, res, next) => {

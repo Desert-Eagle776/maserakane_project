@@ -223,9 +223,40 @@ const getInventory = async (req, res) => {
   }
 };
 
+const connectWallet = async (req, res) => {
+  try {
+    const playerId = req.user.playerId;
+    const { wallet_address } = req.body;
+    if (!wallet_address) {
+      return res.status(400).json({ message: "Wallet address is required." });
+    }
+
+    const player = await playerSchema.findById(playerId);
+    if (!player) {
+      return res.status(404).json({ message: "Player not found." });
+    }
+
+    const checkWallet = player.wallets.find(wallet => wallet === wallet_address);
+    if (checkWallet) {
+      return res.status(400).json({ message: "A wallet address like this already exists." })
+    }
+
+    player.wallets.push(wallet_address);
+    await player.save();
+
+    return res.status(201).json({
+      message: "Wallet successfully added."
+    });
+  } catch (e) {
+    console.log("An error occurred while connecting the wallet: ", e);
+    return res.status(500).json({ message: "An error occurred while connecting the wallet." });
+  }
+}
+
 module.exports = {
   generatePlayerId,
   generateToken,
   updateStuff,
   getInventory,
+  connectWallet,
 };

@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@wharfkit/session": "^1.4.0",
+    "@wharfkit/wallet-plugin-privatekey": "^1.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
