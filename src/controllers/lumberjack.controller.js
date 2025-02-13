@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const axesData = require("../../axes.json");
+const axesData = require("../data/axes.json");
 const playerSchema = require("../models/player.schema");
 const { updateQuestProgress } = require("./quest.controller");
 
@@ -150,7 +150,13 @@ const chopWood = async (req, res) => {
     player.last_action = new Date().toISOString();
     await player.save();
 
-    const questResult = await updateQuestProgress(playerId, 'Lumberjack Training', 'gather', 'wood', woodAmount);
+    const questResult = await updateQuestProgress(
+      playerId,
+      "Lumberjack Training",
+      "gather",
+      "wood",
+      woodAmount
+    );
     console.log("Quest progress updated:", questResult);
 
     return res.status(201).json({

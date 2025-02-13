@@ -1,5 +1,5 @@
 const fs = require("fs");
-const quests = require("../../quests.json");
+const quests = require("../data/quests.json");
 const playerQuestSchema = require("../models/player-quest.schema");
 const playerSchema = require("../models/player.schema");
 
@@ -67,24 +67,26 @@ const questProgress = async (req, res) => {
       return res.status(404).json({ message: "Quest not found" });
     }
 
-    const playerQuest = await playerQuestSchema.findOne({ quest_name: questName, player_id: playerId });
+    const playerQuest = await playerQuestSchema.findOne({
+      quest_name: questName,
+      player_id: playerId,
+    });
     if (!playerQuest) {
-      return res.status(400).json({ message: `Player has not started the quest '${questName}` });
+      return res
+        .status(400)
+        .json({ message: `Player has not started the quest '${questName}` });
     }
 
     if (playerQuest.completed) {
       return res.status(400).json({ message: "Quest completed" });
     }
 
-
     const currentStep = quest.steps.find(
       (step) => step.id === playerQuest.current_step
     );
 
     // If the task field is missing
-    if (
-      !currentStep.task?.items?.length
-    ) {
+    if (!currentStep.task?.items?.length) {
       currentStep.reward.items.forEach((rewardItem) => {
         const itemInInventory = player.inventory.find(
           (item) => item.name === rewardItem.name
@@ -134,11 +136,16 @@ const questProgress = async (req, res) => {
     } else {
       // If the task field is present
 
-
-      const allItemsCollected = currentStep.task.items.every(taskItem =>
-        player.inventory.some(invItem => invItem.name === taskItem.name && invItem.quantity >= taskItem.quantity)
+      const allItemsCollected = currentStep.task.items.every((taskItem) =>
+        player.inventory.some(
+          (invItem) =>
+            invItem.name === taskItem.name &&
+            invItem.quantity >= taskItem.quantity
+        )
       );
-      console.log(currentStep.task.items.forEach(taskItem => console.log(taskItem)));
+      console.log(
+        currentStep.task.items.forEach((taskItem) => console.log(taskItem))
+      );
 
       console.log("ALL ITEMS COLLECTED: ", allItemsCollected);
 
@@ -146,7 +153,7 @@ const questProgress = async (req, res) => {
         return res.status(200).json({
           message: "Progress updated",
           currentProgress: playerQuest.progress,
-          currentStep: currentStep.id
+          currentStep: currentStep.id,
         });
       }
 
@@ -165,9 +172,11 @@ const questProgress = async (req, res) => {
     }
   } catch (e) {
     console.log("An error occurred while updating quest progress: ", e);
-    return res.status(500).json({ message: "An error occurred while updating quest progress" })
+    return res
+      .status(500)
+      .json({ message: "An error occurred while updating quest progress" });
   }
-}
+};
 
 const questComplete = async (req, res) => {
   try {
@@ -273,177 +282,16 @@ const questComplete = async (req, res) => {
   }
 };
 
-// const updateQuestProgress = async (playerId, questName, actionType, actionItem, quantity) => {
-//   console.log(`\n🔄 [START] Mise à jour de la progression de quête pour le joueur ${playerId}`);
-//   // console.log(`   🎯 Action: ${actionType}, Cible: ${actionItem}, Quantité: ${quantity}`);
-
-//   try {
-//     const player = await playerSchema.findById(playerId);
-//     if (!player) {
-//       console.error("Player not found");
-//       return;
-//     }
-
-//     const playerQuest = await playerQuestSchema.findOne({ player_id: playerId, quest_name: questName, completed: false });
-//     if (!playerQuest) {
-//       console.error("No active quest found");
-//       return;
-//     }
-
-//     console.log(`✅ Quête active trouvée: ${playerQuest.quest_name} (Étape actuelle: ${playerQuest.current_step})`);
-
-//     const quest = quests.quests.find(
-//       (quest) => quest.name.toLowerCase() === questName.toLowerCase()
-//     );;
-//     if (!quest) {
-//       console.error("Quest not found");
-//       return;
-//     }
-
-//     const currentStep = quest.steps.find(step => step.id === playerQuest.current_step);
-
-//     if (!currentStep) {
-//       console.error(`❌ Étape de quête invalide: ${playerQuest.current_step}`);
-//       return;
-//     }
-
-//     console.log(`📌 Étape actuelle: ${currentStep.id}, Type: ${currentStep.task.type}`);
-
-//     let isActionValid = false;
-//     let newProgress = playerQuest.progress + quantity;
-//     let requiredQuantity = 0;
-
-//     // Gestion des différentes actions (kill, gather, craft)
-//     switch (actionType) {
-//       case 'kill':
-//         if (currentStep.task.type === 'kill' && currentStep.task.target === actionItem) {
-//           isActionValid = true;
-//           requiredQuantity = currentStep.task.items.quantity;
-//         }
-//         console.log(`⚔️ Action 'kill': ${isActionValid ? `✔ ${newProgress}/${requiredQuantity}` : '❌ Mauvaise cible'}`);
-//         break;
-
-//       case 'gather':
-//         const gatherItemRequired = currentStep.task.items.find(item => item.name === actionItem);
-//         if (currentStep.task.type === 'gather' && gatherItemRequired) {
-//           isActionValid = true;
-//           requiredQuantity = currentStep.task.items[0].quantity;
-//           console.log(requiredQuantity);
-//         }
-//         console.log(`🪓 Action 'gather': ${isActionValid ? `✔ ${newProgress}/${requiredQuantity}` : '❌ Mauvais objet'}`);
-//         break;
-
-//       case 'craft':
-//         const craftItemRequired = currentStep.task.items.find(item => item.name === actionItem);
-//         if (currentStep.task.type === 'craft' && craftItemRequired) {
-//           isActionValid = true;
-//           requiredQuantity = currentStep.task.items.quantity;
-//         }
-//         console.log(`🔨 Action 'craft': ${isActionValid ? `✔ ${newProgress}/${requiredQuantity}` : '❌ Objet incorrect'}`);
-//         break;
-
-//       default:
-//         console.warn(`🚫 Action inconnue: ${actionType}`);
-//         break;
-//     }
-
-//     if (isActionValid) {
-//       console.log(`📊 Progression mise à jour: ${newProgress}/${requiredQuantity}`);
-
-//       if (newProgress >= requiredQuantity) {
-//         console.log(`🏆 Étape '${currentStep.id}' complétée !`);
-//         const nextStepId = currentStep.next;
-
-//         // if (nextStepId) {
-//         //   console.log(`➡️ Passage à l'étape suivante: ${nextStepId}`);
-
-
-//         //   if (currentStep.reward && currentStep.reward.items) {
-//         //     console.log('🎁 Ajout des récompenses...');
-//         //     currentStep.reward.items.forEach(async item => {
-//         //       const existingItem = player.inventory.find(invItem => invItem.name === item.name);
-//         //       if (!existingItem) {
-//         //         player.inventory.push({ name: item.name, quantity: 1 });
-//         //       }
-
-//         //       existingItem.quantity += item.quantity;
-//         //       player.last_action = new Date().toISOString();
-//         //     });
-//         //   }
-
-//         //   playerQuest.current_step = nextStepId;
-
-//         //   await existingItem.save();
-//         //   await playerQuest.save();
-//         //   await player.save();
-//         if (nextStepId) {
-//           console.log(`➡️ Passage à l'étape suivante: ${nextStepId}`);
-
-//           if (currentStep.reward && Array.isArray(currentStep.reward.items) && currentStep.reward.items.length > 0) {
-//             console.log('🎁 Ajout des récompenses...');
-
-//             for (const item of currentStep.reward.items) {
-//               let existingItem = player.inventory.find(invItem => invItem.name === item.name);
-
-//               if (!existingItem) {
-//                 existingItem = { name: item.name, quantity: 0 };
-//                 player.inventory.push(existingItem);
-//               }
-
-//               existingItem.quantity += item.quantity;
-//             }
-
-//             player.last_action = new Date().toISOString();
-//           }
-
-//           playerQuest.current_step = nextStepId;
-
-//           await playerQuest.save();
-//           await player.save();
-//         } else {
-//           console.log(`🎉 Quête '${playerQuest.quest_name}' complétée ! Récompense en cours...`);
-
-//           if (currentStep.reward && currentStep.reward.items) {
-//             console.log('🎁 Ajout des récompenses...');
-//             currentStep.reward.items.forEach(async item => {
-//               const existingItem = player.inventory.find(invItem => invItem.name === item.name);
-//               if (!existingItem) {
-//                 player.inventory.push({ name: item.name, quantity: 1 });
-//               }
-
-//               existingItem.quantity += item.quantity;
-//               playerQuest.completed = true;
-//               player.last_action = new Date().toISOString();
-
-//               await existingItem.save();
-//               await playerQuest.save();
-//               await player.save();
-
-//               return {
-//                 message: `Quest '${playerQuest.quest_name}' completed!`,
-//                 reward: currentStep.reward,
-//                 updatedInventory: player.inventory
-//               }
-//             });
-//           }
-//         }
-//       } else {
-//         playerQuest.progress = newProgress;
-//         await playerQuest.save();
-
-//         return { message: `Progress updated to ${newProgress}/${requiredQuantity}` };
-//       }
-//     } else {
-//       return { message: 'Action not related to current quest step' };
-//     }
-//   } catch (e) {
-//     console.log("Server error while update quest progrss: ", e);
-//     return { message: "Server error while update quest progrss" };
-//   }
-// }
-
-const updateQuestProgress = async (playerId, questName, actionType, actionItem, quantity) => {
-  console.log(`\n🔄 [START] Mise à jour de la progression de quête pour le joueur ${playerId}`);
+const updateQuestProgress = async (
+  playerId,
+  questName,
+  actionType,
+  actionItem,
+  quantity
+) => {
+  console.log(
+    `\n🔄 [START] Mise à jour de la progression de quête pour le joueur ${playerId}`
+  );
 
   try {
     const player = await playerSchema.findById(playerId);
@@ -452,21 +300,31 @@ const updateQuestProgress = async (playerId, questName, actionType, actionItem, 
       return { message: "Player not found" };
     }
 
-    const playerQuest = await playerQuestSchema.findOne({ player_id: playerId, quest_name: questName, completed: false });
+    const playerQuest = await playerQuestSchema.findOne({
+      player_id: playerId,
+      quest_name: questName,
+      completed: false,
+    });
     if (!playerQuest) {
       console.error("No active quest found");
       return { message: "No active quest found" };
     }
 
-    console.log(`✅ Quête active trouvée: ${playerQuest.quest_name} (Étape actuelle: ${playerQuest.current_step})`);
+    console.log(
+      `✅ Quête active trouvée: ${playerQuest.quest_name} (Étape actuelle: ${playerQuest.current_step})`
+    );
 
-    const quest = quests.quests.find(quest => quest.name.toLowerCase() === questName.toLowerCase());
+    const quest = quests.quests.find(
+      (quest) => quest.name.toLowerCase() === questName.toLowerCase()
+    );
     if (!quest) {
       console.error("Quest not found");
       return { message: "Quest not found" };
     }
 
-    const currentStep = quest.steps.find(step => step.id === playerQuest.current_step);
+    const currentStep = quest.steps.find(
+      (step) => step.id === playerQuest.current_step
+    );
     if (!currentStep) {
       console.error(`❌ Étape de quête invalide: ${playerQuest.current_step}`);
       return { message: "Invalid quest step" };
@@ -478,35 +336,46 @@ const updateQuestProgress = async (playerId, questName, actionType, actionItem, 
 
       await playerQuest.save();
 
-      return { message: "All steps in the quest have been successfully completed" };
+      return {
+        message: "All steps in the quest have been successfully completed",
+      };
     }
 
-    console.log(`📌 Étape actuelle: ${currentStep.id}, Type: ${currentStep.task.type}`);
+    console.log(
+      `📌 Étape actuelle: ${currentStep.id}, Type: ${currentStep.task.type}`
+    );
 
     let isActionValid = false;
     let newProgress = playerQuest.progress + quantity;
     let requiredQuantity = 0;
 
     switch (actionType) {
-      case 'kill':
-        if (currentStep.task.type === 'kill' && currentStep.task.target === actionItem) {
+      case "kill":
+        if (
+          currentStep.task.type === "kill" &&
+          currentStep.task.target === actionItem
+        ) {
           isActionValid = true;
           requiredQuantity = currentStep.task.items.quantity;
         }
         break;
 
-      case 'gather': {
-        const gatherItemRequired = currentStep.task.items.find(item => item.name === actionItem);
-        if (currentStep.task.type === 'gather' && gatherItemRequired) {
+      case "gather": {
+        const gatherItemRequired = currentStep.task.items.find(
+          (item) => item.name === actionItem
+        );
+        if (currentStep.task.type === "gather" && gatherItemRequired) {
           isActionValid = true;
           requiredQuantity = gatherItemRequired.quantity;
         }
         break;
       }
 
-      case 'craft': {
-        const craftItemRequired = currentStep.task.items.find(item => item.name === actionItem);
-        if (currentStep.task.type === 'craft' && craftItemRequired) {
+      case "craft": {
+        const craftItemRequired = currentStep.task.items.find(
+          (item) => item.name === actionItem
+        );
+        if (currentStep.task.type === "craft" && craftItemRequired) {
           isActionValid = true;
           requiredQuantity = craftItemRequired.quantity;
         }
@@ -519,10 +388,12 @@ const updateQuestProgress = async (playerId, questName, actionType, actionItem, 
     }
 
     if (!isActionValid) {
-      return { message: 'Action not related to current quest step' };
+      return { message: "Action not related to current quest step" };
     }
 
-    console.log(`📊 Progression mise à jour: ${newProgress}/${requiredQuantity}`);
+    console.log(
+      `📊 Progression mise à jour: ${newProgress}/${requiredQuantity}`
+    );
 
     if (newProgress >= requiredQuantity) {
       console.log(`🏆 Étape '${currentStep.id}' complétée !`);
@@ -530,7 +401,7 @@ const updateQuestProgress = async (playerId, questName, actionType, actionItem, 
       const nextStepId = currentStep.next;
 
       if (currentStep.reward && Array.isArray(currentStep.reward.items)) {
-        console.log('🎁 Ajout des récompenses...');
+        console.log("🎁 Ajout des récompenses...");
         await givePlayerRewards(player, currentStep.reward.items);
       }
 
@@ -542,11 +413,17 @@ const updateQuestProgress = async (playerId, questName, actionType, actionItem, 
       await playerQuest.save();
       await player.save();
 
-      return { message: `Quest step completed!`, reward: currentStep.reward, updatedInventory: player.inventory };
+      return {
+        message: `Quest step completed!`,
+        reward: currentStep.reward,
+        updatedInventory: player.inventory,
+      };
     } else {
       playerQuest.progress = newProgress;
       await playerQuest.save();
-      return { message: `Progress updated to ${newProgress}/${requiredQuantity}` };
+      return {
+        message: `Progress updated to ${newProgress}/${requiredQuantity}`,
+      };
     }
   } catch (e) {
     console.error("Server error while updating quest progress:", e);
@@ -557,7 +434,9 @@ const updateQuestProgress = async (playerId, questName, actionType, actionItem, 
 // Функція для видачі нагород гравцю
 const givePlayerRewards = async (player, rewardItems) => {
   for (const item of rewardItems) {
-    let existingItem = player.inventory.find(invItem => invItem.name === item.name);
+    let existingItem = player.inventory.find(
+      (invItem) => invItem.name === item.name
+    );
 
     if (!existingItem) {
       player.inventory.push({ name: item.name, quantity: item.quantity });

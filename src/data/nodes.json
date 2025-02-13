@@ -1,0 +1,38 @@
+[
+  {
+    "id": "rock_001",
+    "name": "Granite Rock",
+    "possibleDrops": [
+      {
+        "itemName": "Stone",
+        "dropChance": 80,
+        "rarity": "common",
+        "quantity": 1
+      },
+      {
+        "itemName": "Iron Ore",
+        "dropChance": 20,
+        "rarity": "uncommon",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "rock_002",
+    "name": "Gold Vein",
+    "possibleDrops": [
+      {
+        "itemName": "Gold Nugget",
+        "dropChance": 15,
+        "rarity": "legendary",
+        "quantity": 1
+      },
+      {
+        "itemName": "Stone",
+        "dropChance": 70,
+        "rarity": "rare",
+        "quantity": 1
+      }
+    ]
+  }
+]

@@ -19,6 +19,17 @@ const playerSchema = new Schema({
   inventory: [inventorySchema],
   money: currencySchema,
   profession_xp: [professionSchema],
+  mortar_level: { type: Number, default: 1 },
+  unlocked_potion_recipes: [Number],
+  harvestedBushes: [
+    {
+      bushId: String,
+      lastHarvested: Date,
+    },
+  ],
+  minedNodes: { type: Map, of: Date, default: {} },
+  fireplaceLevel: { type: Number, default: 1 },
+  unlocked_cooked_recipes: { type: [String], default: [] },
   last_action: {
     type: Date,
     default: null,

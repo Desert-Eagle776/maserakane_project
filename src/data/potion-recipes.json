@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Healing Potion",
+    "ingredients": [
+      { "name": "Herb", "amount": 3 },
+      { "name": "Water", "amount": 1 }
+    ],
+    "successRate": 80,
+    "effects": "Restores 50 health"
+  },
+  {
+    "id": 2,
+    "name": "Mana Potion",
+    "ingredients": [
+      { "name": "Mana Herb", "amount": 2 },
+      { "name": "Water", "amount": 1 }
+    ],
+    "successRate": 60,
+    "effects": "Restores 30 mana"
+  }
+]

@@ -4,7 +4,9 @@ const http = require("http");
 const WebSocket = require("ws");
 const path = require("path");
 const { Session } = require("@wharfkit/session");
-const { WalletPluginPrivateKey } = require("@wharfkit/wallet-plugin-privatekey");
+const {
+  WalletPluginPrivateKey,
+} = require("@wharfkit/wallet-plugin-privatekey");
 
 const fishermenRouter = require("./src/routes/fishermen.router");
 const craftRouter = require("./src/routes/craft.router");
@@ -13,6 +15,10 @@ const lumberjackRouter = require("./src/routes/lumberjack.router");
 const questRouter = require("./src/routes/quest.router");
 const monsterRouter = require("./src/routes/monsters.router");
 const cryptoRouter = require("./src/routes/crypto.router");
+const alchemistRouter = require("./src/routes/alchemist.router");
+const herboristRouter = require("./src/routes/herborist.router");
+const minerRouter = require("./src/routes/miner.router");
+const cookingRouter = require("./src/routes/cooking.router");
 
 const connectToMongoDB = require("./src/config/mongodbConnection");
 
@@ -59,6 +65,10 @@ app.use("/api/lumberjack", lumberjackRouter);
 app.use("/api/quest", questRouter);
 app.use("/api/monsters", monsterRouter);
 app.use("/api/crypto", cryptoRouter);
+app.use("/api/alchemist", alchemistRouter);
+app.use("/api/herborist", herboristRouter);
+app.use("/api/miner", minerRouter);
+app.use("/api/cooking", cookingRouter);
 
 // Fallback route to serve index.html for all unmatched routes
 app.get("*", (req, res, next) => {

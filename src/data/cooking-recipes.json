@@ -1,0 +1,20 @@
+[
+  {
+    "id": "recipe_001",
+    "name": "Grilled Meat",
+    "requiredLevel": 1,
+    "ingredients": { "Raw Meat": 1 },
+    "fuel": { "Wood": 1 },
+    "successRate": 80,
+    "result": { "Cooked Meat": 1 }
+  },
+  {
+    "id": "recipe_002",
+    "name": "Vegetable Soup",
+    "requiredLevel": 2,
+    "ingredients": { "Carrot": 2, "Water": 1 },
+    "fuel": { "Wood": 1 },
+    "successRate": 90,
+    "result": { "Veggie Soup": 1 }
+  }
+]
