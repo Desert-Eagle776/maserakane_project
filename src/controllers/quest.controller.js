@@ -1,4 +1,3 @@
-const fs = require("fs");
 const quests = require("../data/quests.json");
 const playerQuestSchema = require("../models/player-quest.schema");
 const playerSchema = require("../models/player.schema");
@@ -15,7 +14,7 @@ const questStart = async (req, res) => {
     }
 
     const quest = quests.quests.find(
-      (quest) => quest.name.toLowerCase() === questName.toLowerCase()
+      (quest) => quest.id.toLowerCase() === questName.toLowerCase()
     );
 
     if (!quest) {
@@ -58,7 +57,7 @@ const questProgress = async (req, res) => {
     }
 
     const quest = quests.quests.find(
-      (quest) => quest.name.toLowerCase() === questName.toLowerCase()
+      (quest) => quest.id.toLowerCase() === questName.toLowerCase()
     );
 
     console.log("Quest: ", quest);
@@ -184,7 +183,7 @@ const questComplete = async (req, res) => {
     const playerId = req.user.playerId;
 
     const quest = quests.quests.find(
-      (quest) => quest.name.toLowerCase() === questName.toLowerCase()
+      (quest) => quest.id.toLowerCase() === questName.toLowerCase()
     );
 
     console.log("Quest: ", quest);
@@ -315,7 +314,7 @@ const updateQuestProgress = async (
     );
 
     const quest = quests.quests.find(
-      (quest) => quest.name.toLowerCase() === questName.toLowerCase()
+      (quest) => quest.id.toLowerCase() === questName.toLowerCase()
     );
     if (!quest) {
       console.error("Quest not found");
