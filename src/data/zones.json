@@ -1,0 +1,14 @@
+{
+  "zones": [
+    {
+      "zoneId": "zone1",
+      "name": "North Field",
+      "allowedCrops": ["Wheat", "Carrot"]
+    },
+    {
+      "zoneId": "zone2",
+      "name": "South Field",
+      "allowedCrops": ["Tomato", "Potato"]
+    }
+  ]
+}

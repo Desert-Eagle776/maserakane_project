@@ -7,6 +7,7 @@ const { Session } = require("@wharfkit/session");
 const {
   WalletPluginPrivateKey,
 } = require("@wharfkit/wallet-plugin-privatekey");
+const cron = require("node-cron");
 
 const fishermenRouter = require("./src/routes/fishermen.router");
 const craftRouter = require("./src/routes/craft.router");
@@ -19,8 +20,11 @@ const alchemistRouter = require("./src/routes/alchemist.router");
 const herboristRouter = require("./src/routes/herborist.router");
 const minerRouter = require("./src/routes/miner.router");
 const cookingRouter = require("./src/routes/cooking.router");
+const farmerRouter = require("./src/routes/farmer.router");
+const hungerRouter = require("./src/routes/hunger.router");
 
 const connectToMongoDB = require("./src/config/mongodbConnection");
+const { updatePlantStages } = require("./src/controllers/farmer.controller");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,6 +62,9 @@ app.use((req, res, next) => {
 // connect to MongoDB
 connectToMongoDB();
 
+// Виконання cron кожні 5 хвилин
+cron.schedule("*/5 * * * *", updatePlantStages); // Перевіряємо кожні 5 хвилин
+
 app.use("/api", playerRouter);
 app.use("/api/fishermen", fishermenRouter);
 app.use("/api/craft", craftRouter);
@@ -69,6 +76,8 @@ app.use("/api/alchemist", alchemistRouter);
 app.use("/api/herborist", herboristRouter);
 app.use("/api/miner", minerRouter);
 app.use("/api/cooking", cookingRouter);
+app.use("/api/farmer", farmerRouter);
+app.use("/api/hunger", hungerRouter);
 
 // Fallback route to serve index.html for all unmatched routes
 app.get("*", (req, res, next) => {

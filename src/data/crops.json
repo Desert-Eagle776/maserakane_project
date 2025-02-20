@@ -1,0 +1,211 @@
+{
+  "crops": [
+    {
+      "id": 1,
+      "name": "Wheat",
+      "type": "grain",
+      "growth_time": "1h",
+      "quantity": 1,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "15m" },
+        { "stage": 2, "name": "Sprout", "duration": "15m" },
+        { "stage": 3, "name": "Mature", "duration": "30m" }
+      ],
+      "actions": [
+        {
+          "action": "Water once",
+          "type": "maintenance",
+          "time": "morning"
+        }
+      ],
+      "harvest": "Wheat Grain"
+    },
+    {
+      "id": 2,
+      "name": "Carrot",
+      "type": "root",
+      "growth_time": "2h",
+      "quantity": 2,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "30m" },
+        { "stage": 2, "name": "Sprout", "duration": "30m" },
+        { "stage": 3, "name": "Vegetative", "duration": "30m" },
+        { "stage": 4, "name": "Mature", "duration": "30m" }
+      ],
+      "actions": [
+        {
+          "action": "Remove weeds",
+          "type": "maintenance",
+          "time": "afternoon"
+        }
+      ],
+      "harvest": "Carrot"
+    },
+    {
+      "id": 3,
+      "name": "Potato",
+      "type": "tuber",
+      "growth_time": "3h",
+      "quantity": 1,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "45m" },
+        { "stage": 2, "name": "Sprout", "duration": "45m" },
+        { "stage": 3, "name": "Bloom", "duration": "45m" },
+        { "stage": 4, "name": "Mature", "duration": "45m" }
+      ],
+      "actions": [
+        {
+          "action": "Check soil condition",
+          "type": "inspection",
+          "time": "morning"
+        }
+      ], 
+      "harvest": "Potato"
+    },
+    {
+      "id": 4,
+      "name": "Onion",
+      "type": "bulb",
+      "growth_time": "4h",
+      "quantity": 3,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "1h" },
+        { "stage": 2, "name": "Sprout", "duration": "1h" },
+        { "stage": 3, "name": "Bulbing", "duration": "1h" },
+        { "stage": 4, "name": "Mature", "duration": "1h" }
+      ],
+      "actions": [
+        {
+          "action": "Loosen soil",
+          "type": "maintenance",
+          "time": "afternoon"
+        }
+      ],
+      "harvest": "Onion"
+    },
+    {
+      "id": 5,
+      "name": "Tomato",
+      "type": "fruit",
+      "growth_time": "5h",
+      "quantity": 1,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "1h15m" },
+        { "stage": 2, "name": "Sprout", "duration": "1h15m" },
+        { "stage": 3, "name": "Flowering", "duration": "1h15m" },
+        { "stage": 4, "name": "Mature", "duration": "1h15m" }
+      ],
+      "actions": [
+        {
+          "action": "Add support stick",
+          "type": "maintenance",
+          "time": "morning"
+        }
+      ],
+      "harvest": "Tomato"
+    },
+    {
+      "id": 6,
+      "name": "Mushroom",
+      "type": "fungus",
+      "growth_time": "6h",
+      "quantity": 2,
+      "growth_stages": [
+        { "stage": 1, "name": "Spore", "duration": "1h30m" },
+        { "stage": 2, "name": "Mycelium", "duration": "1h30m" },
+        { "stage": 3, "name": "Pinning", "duration": "1h30m" },
+        { "stage": 4, "name": "Mature", "duration": "1h30m" }
+      ],
+      "actions": [
+        {
+          "action": "Maintain moisture",
+          "type": "maintenance",
+          "time": "night"
+        }
+      ],
+      "harvest": "Mushroom"
+    },
+    {
+      "id": 7,
+      "name": "Garlic",
+      "type": "bulb",
+      "quantity": 3,
+      "growth_time": "8h","growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "2h" },
+        { "stage": 2, "name": "Sprout", "duration": "2h" },
+        { "stage": 3, "name": "Mature", "duration": "4h" }
+      ],
+      "actions": [
+        {
+          "action": "Check soil",
+          "type": "inspection",
+          "time": "morning"
+        }
+      ],
+      "harvest": "Garlic"
+    },
+    {
+      "id": 8,
+      "name": "Bean",
+      "type": "legume",
+      "growth_time": "10h",
+      "quantity": 1,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "3h" },
+        { "stage": 2, "name": "Sprout", "duration": "2h" },
+        { "stage": 3, "name": "Flowering", "duration": "3h" },
+        { "stage": 4, "name": "Mature", "duration": "2h" }
+      ],
+      "actions": [
+        {
+          "action": "Attach climbing support",
+          "type": "maintenance",
+          "time": "afternoon"
+        }
+      ],
+      "harvest": "Bean"
+    },
+    {
+      "id": 9,
+      "name": "Chili Pepper",
+      "type": "fruit",
+      "growth_time": "12h",
+      "quantity": 2,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "3h" },
+        { "stage": 2, "name": "Sprout", "duration": "3h" },
+        { "stage": 3, "name": "Flowering", "duration": "3h" },
+        { "stage": 4, "name": "Mature", "duration": "3h" }
+      ],
+      "actions": [
+        {
+          "action": "Remove weak leaves",
+          "type": "maintenance",
+          "time": "evening"
+        }
+      ],
+      "harvest": "Chili Pepper"
+    },
+    {
+      "id": 10,
+      "name": "Pumpkin",
+      "type": "fruit",
+      "growth_time": "24h",
+      "quantity": 1,
+      "growth_stages": [
+        { "stage": 1, "name": "Seed", "duration": "6h" },
+        { "stage": 2, "name": "Sprout", "duration": "6h" },
+        { "stage": 3, "name": "Flowering", "duration": "6h" },
+        { "stage": 4, "name": "Mature", "duration": "6h" }
+      ],
+      "actions": [
+        {
+          "action": "Remove weeds",
+          "type": "maintenance",
+          "time": "morning"
+        }
+      ],
+      "harvest": "Pumpkin"
+    }
+  ]
+}

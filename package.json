@@ -12,11 +12,13 @@
   "dependencies": {
     "@wharfkit/session": "^1.4.0",
     "@wharfkit/wallet-plugin-privatekey": "^1.1.0",
+    "async": "^3.2.6",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.5",
+    "node-cron": "^3.0.3",
     "sqlite3": "^5.1.7",
     "uuid": "^11.0.5",
     "ws": "^8.17.1"

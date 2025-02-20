@@ -1,0 +1,39 @@
+{
+  "foods": [
+    {
+      "name": "Grilled Fish",
+      "hungerRestore": 20,
+      "saturationDuration": 600, 
+      "saturationRestore": 60, 
+      "effects": "Restores hunger and keeps it full for a longer time."
+    },
+    {
+      "name": "Bread",
+      "hungerRestore": 10,
+      "saturationDuration": 300, 
+      "saturationRestore": 40, 
+      "effects": "Restores a small amount of hunger, average saturation."
+    },
+    {
+      "name": "Steak",
+      "hungerRestore": 30,
+      "saturationDuration": 900,
+      "saturationRestore": 80, 
+      "effects": "Highly nutritious, restores hunger and provides a long-lasting saturation."
+    },
+    {
+      "name": "Apple",
+      "hungerRestore": 5,
+      "saturationDuration": 180,
+      "saturationRestore": 20, 
+      "effects": "Quick snack that restores small amounts of hunger and saturation."
+    },
+    {
+      "name": "Carrot",
+      "hungerRestore": 7,
+      "saturationDuration": 240, 
+      "saturationRestore": 25, 
+      "effects": "A small food item that helps restore hunger and provides short-term saturation."
+    }
+  ]
+}

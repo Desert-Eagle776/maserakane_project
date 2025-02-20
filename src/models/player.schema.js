@@ -30,6 +30,10 @@ const playerSchema = new Schema({
   minedNodes: { type: Map, of: Date, default: {} },
   fireplaceLevel: { type: Number, default: 1 },
   unlocked_cooked_recipes: { type: [String], default: [] },
+  level: { type: Number, default: 1 },
+  hunger: { type: Number, default: 100 },
+  saturation: { type: Number, default: 100 },
+  saturationEndTime: { type: Date, default: null },
   last_action: {
     type: Date,
     default: null,
