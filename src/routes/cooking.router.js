@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/fireplace/upgrade", validateToken, controller.upgradeFireplace);
 router.get("/recipes", validateToken, controller.getAvailableRecipes);
-router.get("/cook", validateToken, controller.cookRecipe);
+router.post("/cook", validateToken, controller.cookRecipe);
 
 module.exports = router;

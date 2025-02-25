@@ -1,21 +1,21 @@
 {
     "axes": {
         "Wooden": {
-            "Abundant": { "woodAmount": 1, "baitProbability": 1, "xpGained": 2 },
-            "Common": { "woodAmount": 1, "baitProbability": 1, "xpGained": 2 },
-            "Uncommon": { "woodAmount": 2, "baitProbability": 3, "xpGained": 3 },
-            "Rare": { "woodAmount": 3, "baitProbability": 5, "xpGained": 4 },
+            "Abundant": { "woodAmount": 1, "baitProbability": 1, "xpGained": 2, "craftTime": 5000 },
+            "Common": { "woodAmount": 1, "baitProbability": 1, "xpGained": 2, "craftTime": 5000 },
+            "Uncommon": { "woodAmount": 2, "baitProbability": 3, "xpGained": 3, "craftTime": 5000 },
+            "Rare": { "woodAmount": 3, "baitProbability": 5, "xpGained": 4, "craftTime": 5000 },
             "Epic": { "woodAmount": 4, "baitProbability": 8, "xpGained": 5 },
-            "Legendary": { "woodAmount": 5, "baitProbability": 12, "xpGained": 6 },
-            "Mythic": { "woodAmount": 6, "baitProbability": 30, "xpGained": 30 }
+            "Legendary": { "woodAmount": 5, "baitProbability": 12, "xpGained": 6, "craftTime": 5000 },
+            "Mythic": { "woodAmount": 6, "baitProbability": 30, "xpGained": 30, "craftTime": 5000 }
         },
         "stone": {
-            "common": { "woodAmount": 2, "baitProbability": 3, "xpGained": 3 },
-            "uncommon": { "woodAmount":3, "baitProbability": 5, "xpGained": 4 },
-            "rare": { "woodAmount": 4, "baitProbability": 8, "xpGained": 5 },
-            "epic": { "woodAmount": 5, "baitProbability": 12, "xpGained": 6 },
-            "legendary": { "woodAmount": 6, "baitProbability": 16, "xpGained": 7 },
-            "mythic": { "woodAmount": 7, "baitProbability": 35, "xpGained": 35 }
+            "common": { "woodAmount": 2, "baitProbability": 3, "xpGained": 3, "craftTime": 5000 },
+            "uncommon": { "woodAmount":3, "baitProbability": 5, "xpGained": 4, "craftTime": 5000 },
+            "rare": { "woodAmount": 4, "baitProbability": 8, "xpGained": 5, "craftTime": 5000 },
+            "epic": { "woodAmount": 5, "baitProbability": 12, "xpGained": 6, "craftTime": 5000 },
+            "legendary": { "woodAmount": 6, "baitProbability": 16, "xpGained": 7, "craftTime": 5000 },
+            "mythic": { "woodAmount": 7, "baitProbability": 35, "xpGained": 35, "craftTime": 5000 }
         }
     }
 }

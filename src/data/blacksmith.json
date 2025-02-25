@@ -3,7 +3,8 @@
         "Wood": {
             "Common": {
                 "requiredLevel": 1,
-                "successRate": 90, 
+                "successRate": 90,
+                "craftTime": 5000,
                 "materials": [
                     { "name": "Wood", "quantity": 10 },
                     { "name": "Stick", "quantity": 5 }
@@ -12,6 +13,7 @@
             "Uncommon": {
                 "requiredLevel": 2,
                 "successRate": 80,
+                "craftTime": 10000,
                 "materials": [
                     { "name": "Wood", "quantity": 15 },
                     { "name": "Wooden Common Sword", "quantity": 4 }
@@ -20,6 +22,7 @@
             "Rare": {
                 "requiredLevel": 2,
                 "successRate": 70,
+                "craftTime": 15000,
                 "materials": [
                     { "name": "Wood", "quantity": 15 },
                     { "name": "Wooden Uncommon Sword", "quantity": 4 }
@@ -28,6 +31,7 @@
             "Epic": {
                 "requiredLevel": 3,
                 "successRate": 60,
+                "craftTime": 20000,
                 "materials": [
                     { "name": "Wood", "quantity": 15 },
                     { "name": "Wooden Rare Sword", "quantity": 4 }
@@ -36,6 +40,7 @@
             "Legendary": {
                 "requiredLevel": 5,
                 "successRate": 50,
+                "craftTime": 25000,
                 "materials": [
                     { "name": "Wood", "quantity": 15 },
                     { "name": "Wooden Epic Sword", "quantity": 4 }

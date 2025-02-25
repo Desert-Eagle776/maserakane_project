@@ -3,7 +3,7 @@ const blacksmithData = require("../data/blacksmith.json");
 const armorerData = require("../data/armorer.json");
 const basicsData = require("../data/basics.json");
 const playerSchema = require("../models/player.schema");
-const { updateQuestProgress } = require("./quest.controller");
+const craftQueueSchema = require("../models/craft-queue.schema");
 
 const blacksmithCraft = async (req, res) => {
   const playerId = req.user.playerId;
@@ -54,53 +54,27 @@ const blacksmithCraft = async (req, res) => {
       );
     }
 
-    const success = Math.random() * 100 <= blacksmithConfig.successRate;
-    console.log(success);
-    if (!success) {
-      // Failed crafting, material loss or partial completion
-      await player.save();
-      return res
-        .status(201)
-        .json({ message: "Crafting failed. Material loss occurred." });
-    }
+    const startTime = new Date();
+    const endTime = new Date(startTime.getTime() + blacksmithConfig.craftTime);
 
-    console.log(blacksmithConfig);
-
-    const craftedItem = `${rarity} ${material} ${type}`;
-
-    console.log(craftedItem);
-
-    const existingItem = player.inventory.find(
-      (item) => item.name === craftedItem
-    );
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      const itemId = uuidv4();
-      player.inventory.push({
-        item_id: itemId,
-        name: craftedItem,
-        quantity: 1,
-      });
-    }
+    const craftProcess = await craftQueueSchema.create({
+      type,
+      material,
+      rarity,
+      startTime,
+      endTime,
+      player_id: playerId,
+      successRate: blacksmithConfig.successRate,
+    });
 
     await player.save();
 
-    const questItem = type.toLowerCase().replace(/\s+/g, "_");
-    const questResult = await updateQuestProgress(
-      playerId,
-      "Crafting Basics",
-      "craft",
-      questItem,
-      1
-    );
-    console.log("Quest progress updated:", questResult);
-
     return res.status(201).json({
       message: "Craft successful",
-      craftedItem,
-      inventory: player.inventory,
-      xpGained: blacksmithConfig.xpGained,
+      craftProcess: {
+        ...craftProcess.toObject(),
+        player_id: playerId.toString("hex"),
+      },
     });
   } catch (e) {
     console.error("Error during crafting process:", e.message);
@@ -159,57 +133,30 @@ const armorerCraft = async (req, res) => {
       );
     }
 
-    const success = Math.random() * 100 <= armorerConfig.successRate;
-    console.log(success);
-    if (!success) {
-      // Failed crafting, material loss or partial completion
-      await player.save();
-      return res
-        .status(201)
-        .json({ message: "Crafting failed. Material loss occurred." });
-    }
+    const startTime = new Date();
+    const endTime = new Date(startTime.getTime() + armorerConfig.craftTime);
 
-    console.log(armorerConfig);
-
-    const craftedItem = `${rarity} ${material} ${type}`;
-
-    console.log(craftedItem);
-
-    const existingItem = player.inventory.find(
-      (item) => item.name === craftedItem
-    );
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      const itemId = uuidv4();
-      player.inventory.push({
-        item_id: itemId,
-        name: craftedItem,
-        quantity: 1,
-      });
-    }
+    const craftProcess = await craftQueueSchema.create({
+      type,
+      material,
+      rarity,
+      startTime,
+      endTime,
+      player_id: playerId,
+      successRate: armorerConfig.successRate,
+    });
 
     await player.save();
 
-    const questItem = craftedItem.toLowerCase().replace(/\s+/g, "_");
-    const questResult = await updateQuestProgress(
-      playerId,
-      "Crafting Basics",
-      "craft",
-      questItem,
-      1
-    );
-    console.log("Quest progress updated:", questResult);
-
     return res.status(201).json({
       message: "Craft successful",
-      craftedItem,
-      inventory: player.inventory,
-      xpGained: armorerConfig.xpGained,
-      questUpdate: questResult,
+      craftProcess: {
+        ...craftProcess.toObject(),
+        player_id: playerId.toString("hex"),
+      },
     });
   } catch (e) {
-    console.error("Error during crafting process:", e.message);
+    console.error("Error during crafting process:", e);
     return res.status(500).json({
       message: "An error occurred during the crafting process.",
     });

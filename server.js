@@ -26,6 +26,9 @@ const hungerRouter = require("./src/routes/hunger.router");
 const connectToMongoDB = require("./src/config/mongodbConnection");
 const { updatePlantStages } = require("./src/controllers/farmer.controller");
 
+// cron
+require("./src/cron/index");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 

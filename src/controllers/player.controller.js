@@ -223,6 +223,45 @@ const getInventory = async (req, res) => {
   }
 };
 
+const addItemToInventory = async (req, res) => {
+  try {
+    const { name, quantity } = req.body;
+    const playerId = req.user.playerId;
+
+    if (
+      typeof name !== "string" ||
+      name.trim().length === 0 ||
+      typeof quantity !== "number" ||
+      !Number.isInteger(quantity) ||
+      quantity < 1
+    ) {
+      return res.status(400).json({ message: "Invalid arguments" });
+    }
+
+    const player = await playerSchema.findById(playerId);
+    if (!player) {
+      return res.status(404).json({ message: "Player not found" });
+    }
+
+    const existingItem = player.inventory.find((item) => item.name === name);
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      player.inventory.push({ name, quantity });
+    }
+
+    await player.save();
+
+    return res.status(200).json({
+      message: "Item added successfully",
+      inventory: player.inventory,
+    });
+  } catch (e) {
+    console.error("Error adding item to inventory:", e);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 const connectWallet = async (req, res) => {
   try {
     const playerId = req.user.playerId;
@@ -236,27 +275,34 @@ const connectWallet = async (req, res) => {
       return res.status(404).json({ message: "Player not found." });
     }
 
-    const checkWallet = player.wallets.find(wallet => wallet === wallet_address);
+    const checkWallet = player.wallets.find(
+      (wallet) => wallet === wallet_address
+    );
     if (checkWallet) {
-      return res.status(400).json({ message: "A wallet address like this already exists." })
+      return res
+        .status(400)
+        .json({ message: "A wallet address like this already exists." });
     }
 
     player.wallets.push(wallet_address);
     await player.save();
 
     return res.status(201).json({
-      message: "Wallet successfully added."
+      message: "Wallet successfully added.",
     });
   } catch (e) {
     console.log("An error occurred while connecting the wallet: ", e);
-    return res.status(500).json({ message: "An error occurred while connecting the wallet." });
+    return res
+      .status(500)
+      .json({ message: "An error occurred while connecting the wallet." });
   }
-}
+};
 
 module.exports = {
   generatePlayerId,
   generateToken,
   updateStuff,
   getInventory,
+  addItemToInventory,
   connectWallet,
 };
