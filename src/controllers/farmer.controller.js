@@ -1,18 +1,26 @@
+const fs = require("fs");
+const path = require("path");
 const asyncQueue = require("async/queue");
 const cropsData = require("../data/crops.json");
+const mapsData = require("../../maps/main_maps.json");
 const zonesData = require("../data/zones.json");
 const plantedCropsSchema = require("../models/planted-crops.schema");
 const plantedCropSchema = require("../models/planted-crops.schema");
 const playerSchema = require("../models/player.schema");
 
+const mainMapsPath = path.resolve(__dirname, "..", "..", "maps/main_maps.json");
+
 const plant = async (req, res) => {
   try {
     const playerId = req.user.playerId;
-    const { cropId, farmingZone } = req.body;
+    const { cropId, mapId, position } = req.body;
 
-    if (!cropId || !playerId || !farmingZone) {
+    if (!cropId || !playerId || !mapId || !position) {
       return res.status(400).json({ message: "Missing required fields" });
     }
+
+    //Convert “x12y31” to “12,31” (example)
+    const modifyPosition = position.replace(/x(\d+)y(\d+)/, "$1,$2");
 
     const player = await playerSchema.findById(playerId);
     if (!player) {
@@ -31,20 +39,26 @@ const plant = async (req, res) => {
       return res.status(404).json({ message: "Crop not found in inventory" });
     }
 
-    const zone = zonesData.zones.find((z) => z.zoneId === farmingZone);
-    if (!zone) {
-      return res.status(400).json({ message: "Zone not found" });
+    if (!fs.existsSync(mainMapsPath)) {
+      console.error("Map data file not found at:", mainMapsPath);
+      return res.status(500).json({ message: "Map data not found." });
     }
 
-    if (!zone.allowedCrops.includes(crop.name)) {
-      return res.status(400).json({
-        message: `The crop "${crop.name}" cannot be planted in zone "${zone.name}"`,
-      });
+    const mapsHashmap = JSON.parse(fs.readFileSync(mainMapsPath, "utf-8"));
+
+    const map = mapsHashmap[mapId];
+    const cell = map[modifyPosition];
+
+    if (!cell || cell.type !== "field" || cell.players.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "The cell is not available for planting" });
     }
 
     const plantedCrop = await plantedCropSchema.create({
       cropId,
-      farmingZone,
+      mapId,
+      position,
       player_id: playerId,
       plantType: crop.type,
       growthStage: crop.growth_stages[0].name,
@@ -57,13 +71,22 @@ const plant = async (req, res) => {
       await player.inventory.deleteOne({ cropId: cropInPlayer.cropId });
     }
 
+    cell.players.push({ playerId, timestamp: new Date().toISOString() });
+
+    fs.writeFileSync(
+      mainMapsPath,
+      JSON.stringify(mapsHashmap, null, 2),
+      "utf-8"
+    );
+    console.log("Updated map data saved.");
+
     const playerIdString = plantedCrop.player_id.toString("hex");
 
     return res.status(201).json({
       message: "Crop planted successfully",
       crop: {
         ...plantedCrop.toObject(),
-        playerIdString,
+        player_id: playerIdString,
       },
     });
   } catch (e) {
@@ -121,15 +144,6 @@ const performAction = async (req, res) => {
       return res.status(404).json({ message: "Player not found" });
     }
 
-    // const crop = await plantedCropsSchema.findOne({
-    //   cropId: cropId,
-    //   player_id: playerId,
-    // });
-
-    // if (!crop) {
-    //   return res.status(400).json({ message: "Crop not found" });
-    // }
-
     const cropsActionsData = cropsData.crops.find(
       (crop) => crop.id === Number(cropId)
     );
@@ -146,9 +160,6 @@ const performAction = async (req, res) => {
         .json({ message: `Action "${action}" is not valid for this crop` });
     }
 
-    // crop.lastAction = action;
-    // await crop.save();
-
     const cropInPlayer = player.inventory.find(
       (item) => item.name === cropsActionsData.name
     );
@@ -163,8 +174,6 @@ const performAction = async (req, res) => {
     }
 
     await player.save();
-
-    // const playerIdString = crop.player_id.toString("hex");
 
     return res.status(200).json({
       message: `Action "${action}" performed successfully on the crop`,
@@ -186,13 +195,13 @@ const harvest = async (req, res) => {
     const { cropId } = req.params;
     const playerId = req.user.playerId;
 
-    const player = playerSchema.findById(playerId);
+    const player = await playerSchema.findById(playerId);
     if (!player) {
       return res.status(404).json({ message: "Player not found" });
     }
 
     const cropPlanted = await plantedCropsSchema.findOne({
-      cropId: Number(cropId),
+      _id: cropId,
       player_id: playerId,
     });
 
@@ -207,26 +216,52 @@ const harvest = async (req, res) => {
       });
     }
 
+    if (!fs.existsSync(mainMapsPath)) {
+      console.error("Map data file not found at:", mainMapsPath);
+      return res.status(500).json({ message: "Map data not found." });
+    }
+
+    const position = cropPlanted.position.replace(/x(\d+)y(\d+)/, "$1,$2");
+    const mapsHashmap = JSON.parse(fs.readFileSync(mainMapsPath, "utf-8"));
+
+    const map = mapsHashmap[cropPlanted.mapId];
+    const cell = map[position];
+
     const baseHarvest = 1;
     const bonusChance = 0.2; // 20% chance for double harvest
     const harvestAmount =
       Math.random() < bonusChance ? baseHarvest * 2 : baseHarvest;
 
-    const cropDetails = cropsData.crops.find((c) => c.id === cropId);
+    const cropDetails = cropsData.crops.find(
+      (c) => c.id === cropPlanted.cropId
+    );
     if (!cropDetails) {
       return res.status(404).json({ message: "Crop not found" });
     }
 
-    const cropInPlayer = player.inventory.find(
+    let cropInPlayer = player.inventory.find(
       (item) => item.name === cropDetails.harvest
     );
     if (!cropInPlayer) {
-      const newCrop = { name: cropDetails.harvest, quantity: harvestAmount };
-      player.inventory.push(newCrop);
+      cropInPlayer = { name: cropDetails.harvest, quantity: harvestAmount };
+      player.inventory.push(cropInPlayer);
     }
+
+    console.log(cropInPlayer);
 
     cropInPlayer.quantity += harvestAmount;
     await player.save();
+
+    console.log(cell);
+
+    cell.players = [];
+
+    fs.writeFileSync(
+      mainMapsPath,
+      JSON.stringify(mapsHashmap, null, 2),
+      "utf-8"
+    );
+    console.log("Updated map data saved.");
 
     // Remove the crop after harvesting
     await plantedCropsSchema.deleteOne({ _id: cropPlanted._id });
@@ -243,16 +278,22 @@ const harvest = async (req, res) => {
 
 const getFarmingZones = async (req, res) => {
   try {
-    // Отримуємо всі посаджені культури
-    const plantedCrops = await plantedCropsSchema.find();
+    const freeZones = [];
 
-    // Створюємо множину зайнятих зон
-    const occupiedZones = new Set(plantedCrops.map((crop) => crop.zoneId));
+    for (const map in mapsData) {
+      for (position in mapsData[map]) {
+        const cell = mapsData[map][position];
 
-    // Фільтруємо зони, залишаючи лише вільні
-    const freeZones = zonesData.zones.filter(
-      (zone) => !occupiedZones.has(zone.zoneId)
-    );
+        if (cell.type && cell.type === "field" && cell.players.length === 0) {
+          freeZones.push({
+            map,
+            position,
+            name: cell.name,
+            type: cell.type,
+          });
+        }
+      }
+    }
 
     return res.status(200).json({
       message: "Available farming zones retrieved successfully",
@@ -274,39 +315,36 @@ function parseTimeToMilliseconds(time) {
     const unit = match[2];
 
     if (unit === "h") {
-      totalMilliseconds += value * 60 * 60 * 1000; // Перетворюємо години в мілісекунди
+      totalMilliseconds += value * 60 * 60 * 1000;
     } else if (unit === "m") {
-      totalMilliseconds += value * 60 * 1000; // Перетворюємо хвилини в мілісекунди
+      totalMilliseconds += value * 60 * 1000;
     }
   }
 
-  return totalMilliseconds; // Повертаємо в мілісекундах
+  return totalMilliseconds;
 }
 
-// Функція для оновлення стадії рослин
 const updatePlantStages = async () => {
-  console.log(`[${new Date().toISOString()}] Cron job started`); // Лог початку виконання
+  console.log(`[${new Date().toISOString()}] Cron job started`);
 
   try {
-    // Замість вибору всіх рослин, вибираємо лише ті, які потребують оновлення
     const crops = await plantedCropsSchema
       .find({
         lastStageChange: {
-          $lt: new Date(Date.now() - parseTimeToMilliseconds("5m")), // перевіряємо, чи пройшло більше 5 хвилин
+          $lt: new Date(Date.now() - parseTimeToMilliseconds("5m")),
         },
       })
-      .limit(100); // обмежуємо кількість рослин для обробки (наприклад, 100)
+      .limit(100);
 
     if (crops.length === 0) {
-      console.log(`[${new Date().toISOString()}] No crops to update`); // Лог, якщо не знайдено рослин для оновлення
+      console.log(`[${new Date().toISOString()}] No crops to update`);
       return;
     }
 
     console.log(
       `[${new Date().toISOString()}] Found ${crops.length} crops to update`
-    ); // Лог кількості рослин для оновлення
+    );
 
-    // Черга для обробки рослин
     const queue = asyncQueue(async (crop) => {
       const cropData = cropsData.crops.find((c) => c.id === crop.cropId);
       if (!cropData) return;
@@ -325,36 +363,32 @@ const updatePlantStages = async () => {
       const nextStage = cropData.growth_stages[currentStageIndex + 1];
 
       const currentTime = new Date();
-      const timeElapsed = currentTime - new Date(crop.lastStageChange); // Вимірюємо час, що минув
+      const timeElapsed = currentTime - new Date(crop.lastStageChange);
 
-      const stageDuration = parseTimeToMilliseconds(currentStage.duration); // Тривалість поточної стадії в мілісекундах
+      const stageDuration = parseTimeToMilliseconds(currentStage.duration);
 
       if (timeElapsed >= stageDuration) {
-        // Якщо рослина дозріла (переміщається на наступну стадію або готова до збирання)
         if (nextStage) {
           crop.growthStage = nextStage.name;
-          crop.lastStageChange = currentTime; // Оновлюємо час зміни стадії
-          crop.timeRemaining = parseTimeToMilliseconds(nextStage.duration); // Оновлюємо час до завершення наступної стадії
+          crop.lastStageChange = currentTime;
+          crop.timeRemaining = parseTimeToMilliseconds(nextStage.duration);
           console.log(
             `[${new Date().toISOString()}] Crop ${crop._id} updated to stage ${
               nextStage.name
             }`
-          ); // Лог успішного оновлення
+          );
         } else {
-          // Якщо наступної стадії немає, рослина дозріла
-          crop.readyToHarvest = true; // Додаємо поле "готова до збирання"
-          crop.timeRemaining = null; // Якщо готова до збирання, значення timeRemaining стає null
+          crop.readyToHarvest = true;
+          crop.timeRemaining = null;
           console.log(
             `[${new Date().toISOString()}] Crop ${crop._id} is ready to harvest`
           );
         }
 
-        // Оновлюємо рослину в базі даних
         await crop.save();
       }
-    }, 10); // Максимум 10 одночасних завдань
+    }, 10);
 
-    // Додаємо рослини в чергу
     crops.forEach((crop) => {
       queue.push(crop);
     });
@@ -362,83 +396,11 @@ const updatePlantStages = async () => {
     console.error(
       `[${new Date().toISOString()}] Error updating plant stages:`,
       error
-    ); // Лог помилки
+    );
   }
 
-  console.log(`[${new Date().toISOString()}] Cron job completed`); // Лог завершення виконання
+  console.log(`[${new Date().toISOString()}] Cron job completed`);
 };
-
-// // Функція для оновлення стадії рослин
-// const updatePlantStages = async () => {
-//   console.log(`[${new Date().toISOString()}] Cron job started`); // Лог початку виконання
-
-//   try {
-//     // Замість вибору всіх рослин, вибираємо лише ті, які потребують оновлення
-//     const crops = await plantedCropsSchema
-//       .find({
-//         lastStageChange: {
-//           $lt: new Date(Date.now() - parseTimeToMilliseconds("5m")),
-//         }, // перевіряємо, чи пройшло більше 5 хвилин
-//       })
-//       .limit(100); // обмежуємо кількість рослин для обробки (наприклад, 100)
-
-//     if (crops.length === 0) {
-//       console.log(`[${new Date().toISOString()}] No crops to update`); // Лог, якщо не знайдено рослин для оновлення
-//       return;
-//     }
-
-//     console.log(
-//       `[${new Date().toISOString()}] Found ${crops.length} crops to update`
-//     ); // Лог кількості рослин для оновлення
-
-//     // Черга для обробки рослин
-//     const queue = asyncQueue(async (crop) => {
-//       const cropData = cropsData.crops.find((c) => c.id === crop.cropId);
-//       if (!cropData) return;
-
-//       const currentStageIndex = cropData.growth_stages.findIndex(
-//         (stage) => stage.name === crop.growthStage
-//       );
-
-//       if (
-//         currentStageIndex === -1 ||
-//         currentStageIndex === cropData.growth_stages.length - 1
-//       )
-//         return;
-
-//       const currentStage = cropData.growth_stages[currentStageIndex];
-//       const nextStage = cropData.growth_stages[currentStageIndex + 1];
-
-//       const currentTime = new Date();
-//       const timeElapsed = currentTime - new Date(crop.lastStageChange); // Вимірюємо час, що минув
-
-//       const stageDuration = parseTimeToMilliseconds(currentStage.duration); // Тривалість поточної стадії в мілісекундах
-//       if (timeElapsed >= stageDuration) {
-//         // Оновлюємо рослину на наступну стадію
-//         crop.growthStage = nextStage.name;
-//         crop.lastStageChange = currentTime; // Оновлюємо час зміни стадії
-//         await crop.save();
-//         console.log(
-//           `[${new Date().toISOString()}] Crop ${crop._id} updated to stage ${
-//             nextStage.name
-//           }`
-//         ); // Лог успішного оновлення
-//       }
-//     }, 10); // Максимум 10 одночасних завдань
-
-//     // Додаємо рослини в чергу
-//     crops.forEach((crop) => {
-//       queue.push(crop);
-//     });
-//   } catch (error) {
-//     console.error(
-//       `[${new Date().toISOString()}] Error updating plant stages:`,
-//       error
-//     ); // Лог помилки
-//   }
-
-//   console.log(`[${new Date().toISOString()}] Cron job completed`); // Лог завершення виконання
-// };
 
 module.exports = {
   plant,

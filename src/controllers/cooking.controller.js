@@ -1,5 +1,6 @@
 const playerSchema = require("../models/player.schema");
 const recipes = require("../data/cooking-recipes.json");
+const cookingQuqueSchema = require("../models/cooking-queue.schema");
 
 const upgradeFireplace = async (req, res) => {
   try {
@@ -92,12 +93,6 @@ const cookRecipe = async (req, res) => {
       }
     }
 
-    const success = Math.random() * 100 < recipe.successRate;
-
-    if (!success) {
-      return res.status(400).json({ message: "Cooking failed!" });
-    }
-
     for (let ingredient in recipe.ingredients) {
       const item = player.inventory.find((i) => i.name === ingredient);
       item.quantity -= recipe.ingredients[ingredient];
@@ -116,22 +111,29 @@ const cookRecipe = async (req, res) => {
       }
     }
 
-    for (let result in recipe.result) {
-      const item = player.inventory.find((i) => i.name === result);
-      if (item) {
-        item.quantity += recipe.result[result];
-      } else {
-        player.inventory.push({
-          name: result,
-          quantity: recipe.result[result],
-        });
-      }
-    }
-
     await player.save();
-    return res
-      .status(200)
-      .json({ message: "Cooking successful!", result: recipe.result });
+
+    const startTime = new Date();
+    const endTime = new Date(startTime.getTime() + recipe.cookingTime);
+
+    const cookingProcess = await cookingQuqueSchema.create({
+      startTime,
+      endTime,
+      player_id: playerId,
+      recipe_id: recipeId,
+    });
+
+    const playerIdString = cookingProcess.player_id.toString("hex");
+
+    return res.status(200).json({
+      message: `Cooking started! It will be ready in ${
+        recipe.cookingTime / 1000
+      } seconds`,
+      cookingProcess: {
+        ...cookingProcess.toObject(),
+        player_id: playerIdString,
+      },
+    });
   } catch (e) {
     console.log(e);
     return res.status(500).json({

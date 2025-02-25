@@ -25,6 +25,8 @@ const playerSchema = new Schema({
     {
       bushId: String,
       lastHarvested: Date,
+      position: String,
+      mapId: String,
     },
   ],
   minedNodes: { type: Map, of: Date, default: {} },

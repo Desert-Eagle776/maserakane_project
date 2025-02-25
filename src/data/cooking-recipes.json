@@ -5,6 +5,7 @@
     "requiredLevel": 1,
     "ingredients": { "Raw Meat": 1 },
     "fuel": { "Wood": 1 },
+    "cookingTime": 5000,
     "successRate": 80,
     "result": { "Cooked Meat": 1 }
   },
@@ -14,6 +15,7 @@
     "requiredLevel": 2,
     "ingredients": { "Carrot": 2, "Water": 1 },
     "fuel": { "Wood": 1 },
+    "cookingTime": 10000,
     "successRate": 90,
     "result": { "Veggie Soup": 1 }
   }

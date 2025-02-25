@@ -1,6 +1,7 @@
 const playerSchema = require("../models/player.schema");
 const mortarLevels = require("../data/mortars.json");
 const recipes = require("../data/potion-recipes.json");
+const potionQueueSchema = require("../models/potion-queue.schema");
 
 const getMortarDataAndRecipes = async (req, res) => {
   try {
@@ -9,6 +10,13 @@ const getMortarDataAndRecipes = async (req, res) => {
     const player = await playerSchema.findById(playerId);
     if (!player) {
       return res.status(404).json({ message: "Player not found" });
+    }
+
+    // Ensure unlocked_recipes is an array before using .includes()
+    if (!Array.isArray(player.unlocked_recipes)) {
+      return res.status(500).json({
+        message: "Player's unlocked recipes are not properly defined",
+      });
     }
 
     const mortarData = mortarLevels[player.mortar_level - 1];
@@ -68,7 +76,6 @@ const upgradeMorter = async (req, res) => {
       return res.status(400).json({ message: "Not enough Stone for upgrade" });
     }
 
-    // Виконуємо апгрейд
     player.mortar_level = level;
     stoneItem.quantity -= totalRequiredStone;
 
@@ -90,6 +97,28 @@ const craftPotion = async (req, res) => {
   try {
     const { recipeId, ingredients } = req.body;
     const playerId = req.user.playerId;
+
+    if (!recipeId || typeof recipeId !== "number") {
+      return res.status(400).json({ message: "Invalid or missing recipeId" });
+    }
+
+    if (!Array.isArray(ingredients) || ingredients.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Invalid or missing ingredients" });
+    }
+
+    for (let ingredient of ingredients) {
+      if (
+        !ingredient.name ||
+        typeof ingredient.name !== "string" ||
+        !ingredient.amount ||
+        typeof ingredient.amount !== "number" ||
+        ingredient.amount <= 0
+      ) {
+        return res.status(400).json({ message: "Invalid ingredient format" });
+      }
+    }
 
     const player = await playerSchema.findById(playerId);
     if (!player) {
@@ -114,36 +143,40 @@ const craftPotion = async (req, res) => {
         .json({ message: "Not enough ingredients for crafting" });
     }
 
-    const playerIngredients = [];
-    for (let i = 0; i < ingredients.length; i++) {
-      const item = player.inventory.find(
-        (itm) => itm.name === ingredients[i].name
-      );
-      if (item) {
-        item.quantity -= ingredients[i].amount;
-        playerIngredients.push(item);
+    for (let ingredient of recipe.ingredients) {
+      const item = player.inventory.find((i) => i.name === ingredient.name);
+      item.quantity -= ingredient.amount;
+      if (item.quantity <= 0) {
+        player.inventory = player.inventory.filter(
+          (i) => i.name !== ingredient.name
+        );
       }
     }
 
-    const success = Math.random() * 100 < recipe.successRate;
-    if (!success) {
-      await player.save();
-      return res
-        .status(200)
-        .json({ messgae: "Crafting failed. Ingredients deducted." });
-    }
+    const startTime = new Date();
+    const endTime = new Date(startTime.getTime() + recipe.craftingTime);
 
-    const potion = {
-      name: recipe.name,
-      effects: recipe.effects,
-    };
+    const craftingProcess = await potionQueueSchema.create({
+      startTime,
+      endTime,
+      player_id: playerId,
+      recipe_id: recipeId,
+    });
 
-    player.inventory.push({ name: potion.name, quantity: 1 });
     await player.save();
 
-    return res.status(200).json({ message: "Crafting successful", potion });
+    return res.status(200).json({
+      message: `Crafting started! It will be ready in ${
+        recipe.craftingTime / 1000
+      } seconds.`,
+      craftingProcess: {
+        ...craftingProcess.toObject(),
+        player_id: playerId.toString("hex"),
+      },
+    });
   } catch (e) {
     console.log(e);
+    return res.status(500).json({ message: "Server error" });
   }
 };
 

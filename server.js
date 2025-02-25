@@ -26,6 +26,9 @@ const hungerRouter = require("./src/routes/hunger.router");
 const connectToMongoDB = require("./src/config/mongodbConnection");
 const { updatePlantStages } = require("./src/controllers/farmer.controller");
 
+// cron
+require("./src/cron/index");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -49,7 +52,7 @@ const session = new Session({
 });
 
 // Path to serve static files (index.html, styles, scripts, etc.)
-const publicPath = "/home/newgenesis/htdocs/www.newgenesis.io";
+const publicPath = "/home/newgenesis-test/htdocs/test.newgenesis.io";
 app.use(express.static(publicPath));
 // Middleware
 app.use(express.json());

@@ -1,19 +1,23 @@
-[
-  {
-    "id": "bush_001",
-    "name": "Magic Bush",
-    "possibleDrops": [
-      { "itemName": "Green Leaf", "dropChance": 50 },
-      { "itemName": "Red Leaf", "dropChance": 30 },
-      { "itemName": "Golden Leaf", "dropChance": 5 }
-    ]
-  },
-  {
-    "id": "bush_002",
-    "name": "Ancient Shrub",
-    "possibleDrops": [
-      { "itemName": "Blue Leaf", "dropChance": 40 },
-      { "itemName": "Purple Leaf", "dropChance": 20 }
-    ]
-  }
-]
+{
+  "bushes": [
+    {
+      "id": "bush_001",
+      "name": "Magic Bush",
+      "type": "mystical_bush",
+      "possibleDrops": [
+        { "itemName": "Green Leaf", "dropChance": 50 },
+        { "itemName": "Red Leaf", "dropChance": 30 },
+        { "itemName": "Golden Leaf", "dropChance": 5 }
+      ]
+    },
+    {
+      "id": "bush_002",
+      "name": "Ancient Shrub",
+      "type": "ancient_bush",
+      "possibleDrops": [
+        { "itemName": "Blue Leaf", "dropChance": 40 },
+        { "itemName": "Purple Leaf", "dropChance": 20 }
+      ]
+    }
+  ]
+}

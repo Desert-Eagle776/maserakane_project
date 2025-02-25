@@ -2,6 +2,7 @@
     "Stick": {
         "requiredLevel": 0,
         "successRate": 90,
+        "craftTime": 5000,
         "materials": [
             {
                 "name": "Wood",
@@ -14,6 +15,7 @@
     "Fabric": {
         "requiredLevel": 0,
         "successRate": 90,
+        "craftTime": 10000,
         "materials": [
             {
                 "name": "string",
