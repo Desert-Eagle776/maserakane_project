@@ -36,7 +36,7 @@ const consume = async (req, res) => {
       return res.status(404).json({ message: "Food not found" });
     }
 
-    // Перевірка інвентарю на наявність їжі
+    // Checking inventory for food availability
     const inventoryItem = player.inventory.find(
       (item) => item.name === foodName
     );
@@ -46,7 +46,7 @@ const consume = async (req, res) => {
         .json({ message: "Food not available in inventory" });
     }
 
-    // Зменшення кількості їжі в інвентарі
+    // Reducing the amount of food in the inventory
     inventoryItem.quantity -= 1;
     player.inventory = player.inventory.filter((item) => item.quantity > 0);
 
@@ -85,12 +85,12 @@ const decrease = async (req, res) => {
     const hungerDrainRate = getHungerDrainRate(player.level);
     const saturationDrainRate = getSaturationDrainRate(player.level);
 
-    // Зменшення насичення, якщо воно більше 0
+    // Decreasing saturation if it's greater than 0
     if (player.saturation > 0) {
       player.saturation = Math.max(0, player.saturation - saturationDrainRate);
     }
 
-    // Якщо насичення закінчилось, зменшуємо голод
+    // If saturation is depleted, decrease hunger
     if (player.saturation === 0 || player.saturationEndTime < Date.now()) {
       player.hunger = Math.max(0, player.hunger - hungerDrainRate);
     }
@@ -139,7 +139,7 @@ const setSaturation = async (req, res) => {
   }
 };
 
-// Визначення темпу зменшення голоду та насичення залежно від рівня гравця
+// Determining the rate of hunger decrease and saturation depending on the player's level
 const getHungerDrainRate = (level) => {
   if (level >= 16) return 3; // Very Fast (3x)
   if (level >= 11) return 2; // Fast (2x)

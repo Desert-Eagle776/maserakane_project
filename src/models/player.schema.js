@@ -15,7 +15,7 @@ const playerSchema = new Schema({
     default: null,
   },
   wallets: [String],
-  stuff: stuffSchema,
+  stuff: { type: stuffSchema, default: () => ({}) },
   inventory: [inventorySchema],
   money: currencySchema,
   profession_xp: [professionSchema],
