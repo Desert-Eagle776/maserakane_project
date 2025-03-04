@@ -117,7 +117,7 @@ const chopWood = async (req, res) => {
 
     if (hasBait) {
       const baitItem = player.inventory.find(
-        (item) => item.name === "worm_bait"
+        (item) => item.name === "Common Worm Bait"
       );
 
       if (baitItem) {

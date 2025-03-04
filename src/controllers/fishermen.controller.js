@@ -75,7 +75,9 @@ const catchFish = async (req, res) => {
 
     console.log("Player has the required fishing rod equipped.");
 
-    let baitItem = player.inventory.find((item) => item.name === "worm_bait");
+    let baitItem = player.inventory.find(
+      (item) => item.name === "Common Worm Bait"
+    );
 
     // Verify that the player has enough worm bait
     console.log("Checking player's worm bait:", baitItem);
